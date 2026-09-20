@@ -229,10 +229,13 @@ Samuel Bharti
   font-size: 1em;
 }
 
-/* custom.scss ships a 3-column default and .c4; this deck also needs 2-up. */
+/* custom.scss ships a 3-column default and .c4; this deck also needs 2-up, and
+   5-up for the ten apps. Ten cards over four columns leaves a 4-4-2 last row
+   that reads as something missing; two rows of five reads as the count. */
 .reveal .cards.c2 { grid-template-columns: repeat(2, 1fr); }
+.reveal .cards.c5 { grid-template-columns: repeat(5, 1fr); }
 
-/* .on marks the cards the talk actually opens. The other seven are names the
+/* .on marks the cards the talk actually opens. The other six are names the
    room hears once and never sees again, so the mark has to survive a glance
    from the back of a Zoom grid: a tint plus a heavier left rule, not a colour
    swap that reads as decoration. The rest keep their white background and full
@@ -696,28 +699,32 @@ document.addEventListener('click', function (e) {
 </div>
 </div>
 </section>
-<section id="the-apps-i-built-this-summer" class="slide level2">
-<h2>The apps I built this summer</h2>
-<div class="cards c4">
-<div class="on">
-<p>plotomics</p>
-<p>17 GPU components. One core, three languages.</p>
-</div>
-<div class="on">
-<p>biobouncer</p>
-<p>The gate every one of them calls first.</p>
-</div>
+<section id="the-ten-apps-i-built-this-summer" class="slide level2">
+<h2>The ten apps I built this summer</h2>
+<div class="cards c5">
 <div class="on">
 <p>tahoe-explorer</p>
 <p>Plan a reanalysis before spending compute.</p>
 </div>
 <div class="on">
-<p>genescout</p>
-<p>200 candidates to a ranked thirty.</p>
+<p>plotomics-live</p>
+<p>Twenty-six figures, two engines.</p>
 </div>
 <div class="on">
 <p>variant-reviewer</p>
 <p>One variant, without eighteen tabs.</p>
+</div>
+<div class="on">
+<p>genescout</p>
+<p>200 candidates to a ranked thirty.</p>
+</div>
+<div>
+<p>gene-list-builder</p>
+<p>A disease panel from seven sources.</p>
+</div>
+<div>
+<p>recount-explorer</p>
+<p>recount3, without writing any code.</p>
 </div>
 <div>
 <p>de-explorer</p>
@@ -735,24 +742,23 @@ document.addEventListener('click', function (e) {
 <p>genome-explorer</p>
 <p>Mutations in genomic context.</p>
 </div>
-<div>
-<p>multi-variant-reviewer</p>
-<p>Do one patient’s variants converge?</p>
 </div>
-<div>
-<p>gene-list-builder</p>
-<p>A disease panel from seven sources.</p>
+</section>
+<section id="and-five-packages-underneath-them" class="slide level2">
+<h2>And five packages underneath them</h2>
+<div class="kicker">
+<p>Every one of these came out of a problem the apps kept hitting. Solve it once, and the next app gets it for free.</p>
 </div>
-<div>
-<p>knowledge-graph-viewer</p>
-<p>A biomedical network, evidence attached.</p>
-</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/diagrams/package-stack.png" class="quarto-figure quarto-figure-center" style="width:62.0%"></p>
+</figure>
 </div>
 </section>
 <section id="twenty-six-bespoke-figures" class="slide level2">
 <h2>Twenty-six bespoke figures</h2>
 <div class="kicker">
-<p>The omics visualization gallery. Every one of these is a component you can call today.</p>
+<p>Plotomics Live. Every one of these is a component you can call today, from R, Python or React.</p>
 </div>
 <div class="viz26">
   <div class="vrow">
@@ -810,7 +816,7 @@ document.addEventListener('click', function (e) {
 </div>
 </div>
 <div class="pills">
-<span>pattern · cache · remote · existence</span><span class="ok">GitHub · PyPI · Zenodo DOI</span><span class="alt">submitted to CRAN</span>
+<span>pattern · cache · remote · existence</span><span class="ok">CRAN · PyPI · GitHub · Zenodo DOI</span>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -891,8 +897,8 @@ document.addEventListener('click', function (e) {
 <p>Blog posts on the parts that generalise. No dates promised.</p>
 </div>
 <div>
-<p>Deploy them</p>
-<p>Nothing is deployed. That is the next piece of work, not a footnote.</p>
+<p>Keep them running</p>
+<p>All ten are deployed on Connect Cloud now. Keeping them current is the part that does not end.</p>
 </div>
 </div>
 <div class="payoff">
@@ -916,8 +922,8 @@ document.addEventListener('click', function (e) {
 <p>What a scientist walks away from the demo with.</p>
 </div>
 <div class="w4">
-<p>Three more applications</p>
-<p>Differential expression, pathway activity, drug reversal.</p>
+<p>The other applications</p>
+<p>The five focused apps, the two rendering engines, and what sits under all of them.</p>
 </div>
 </div>
 </section>
@@ -959,6 +965,20 @@ document.addEventListener('click', function (e) {
 <p>The front door for a dataset that didn’t have one.</p>
 </div>
 </section>
+<section id="five-focused-applications" class="slide level2" data-visibility="uncounted">
+<h2>Five focused applications</h2>
+<div class="kicker">
+<p>Recount Explorer, DE Explorer, Signature Scoring, Drug Perturbation and Genome Explorer. One common workflow each, wrapped so somebody else can run it.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/screens/focused-apps.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+<div class="payoff">
+<p>An analysis can end in a tool, not in a script the next person has to rerun.</p>
+</div>
+</section>
 <section id="which-genes-changed-and-by-how-much" class="slide level2" data-visibility="uncounted">
 <h2>Which genes changed, and by how much</h2>
 <div class="kicker">
@@ -989,6 +1009,20 @@ document.addEventListener('click', function (e) {
 <p>If the disease turns genes up, find the compound that turns them down.</p>
 </div>
 </section>
+<section id="the-same-page-two-engines" class="slide level2" data-visibility="uncounted">
+<h2>The same page, two engines</h2>
+<div class="kicker">
+<p><span class="app">Plotomics Live</span> One toggle swaps the GPU React component for the ggplot2 image, over the same server-side computation.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/screens/plotomics-live.png" class="quarto-figure quarto-figure-center" style="width:68.0%"></p>
+</figure>
+</div>
+<div class="payoff">
+<p>R stays the analytical engine. The browser does the drawing it is good at.</p>
+</div>
+</section>
 <section id="two-things-sit-under-all-of-them" class="slide level2" data-visibility="uncounted">
 <h2>Two things sit under all of them</h2>
 <div class="walls g2">
@@ -1007,7 +1041,7 @@ document.addEventListener('click', function (e) {
 </figure>
 </div>
 <div class="payoff">
-<p>The second one is public. It is the piece you could use tomorrow.</p>
+<p>Both are public now. Either one is a piece you could use tomorrow.</p>
 </div>
 
 </section>

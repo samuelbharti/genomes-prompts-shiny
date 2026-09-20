@@ -43,10 +43,13 @@ format:
   font-size: 1em;
 }
 
-/* custom.scss ships a 3-column default and .c4; this deck also needs 2-up. */
+/* custom.scss ships a 3-column default and .c4; this deck also needs 2-up, and
+   5-up for the ten apps. Ten cards over four columns leaves a 4-4-2 last row
+   that reads as something missing; two rows of five reads as the count. */
 .reveal .cards.c2 { grid-template-columns: repeat(2, 1fr); }
+.reveal .cards.c5 { grid-template-columns: repeat(5, 1fr); }
 
-/* .on marks the cards the talk actually opens. The other seven are names the
+/* .on marks the cards the talk actually opens. The other six are names the
    room hears once and never sees again, so the mark has to survive a glance
    from the back of a Zoom grid: a tint plus a heavier left rule, not a colour
    swap that reads as decoration. The rest keep their white background and full
@@ -517,25 +520,25 @@ Every dot is a single molecule of RNA.
 :::
 
 
-## The apps I built this summer
+## The ten apps I built this summer
 
-::: {.cards .c4}
-::: {.on}
-plotomics
-
-17 GPU components. One core, three languages.
-:::
-
-::: {.on}
-biobouncer
-
-The gate every one of them calls first.
-:::
-
+::: {.cards .c5}
 ::: {.on}
 tahoe-explorer
 
 Plan a reanalysis before spending compute.
+:::
+
+::: {.on}
+plotomics-live
+
+Twenty-six figures, two engines.
+:::
+
+::: {.on}
+variant-reviewer
+
+One variant, without eighteen tabs.
 :::
 
 ::: {.on}
@@ -544,10 +547,16 @@ genescout
 200 candidates to a ranked thirty.
 :::
 
-::: {.on}
-variant-reviewer
+::: {}
+gene-list-builder
 
-One variant, without eighteen tabs.
+A disease panel from seven sources.
+:::
+
+::: {}
+recount-explorer
+
+recount3, without writing any code.
 :::
 
 ::: {}
@@ -574,31 +583,22 @@ genome-explorer
 Mutations in genomic context.
 :::
 
-::: {}
-multi-variant-reviewer
-
-Do one patient's variants converge?
 :::
 
-::: {}
-gene-list-builder
 
-A disease panel from seven sources.
+## And five packages underneath them
+
+::: {.kicker}
+Every one of these came out of a problem the apps kept hitting. Solve it once, and the next app gets it for free.
 :::
 
-::: {}
-knowledge-graph-viewer
-
-A biomedical network, evidence attached.
-:::
-
-:::
+![](assets/diagrams/package-stack.png){.nostretch width=62% fig-align="center"}
 
 
 ## Twenty-six bespoke figures
 
 ::: {.kicker}
-The omics visualization gallery. Every one of these is a component you can call today.
+Plotomics Live. Every one of these is a component you can call today, from R, Python or React.
 :::
 
 ```{=html}
@@ -669,7 +669,7 @@ validation modes
 :::
 :::
 
-<div class="pills"><span>pattern · cache · remote · existence</span><span class="ok">GitHub · PyPI · Zenodo DOI</span><span class="alt">submitted to CRAN</span></div>
+<div class="pills"><span>pattern · cache · remote · existence</span><span class="ok">CRAN · PyPI · GitHub · Zenodo DOI</span></div>
 :::
 
 ![](assets/diagrams/biobouncer-overview.svg){.nostretch width=70% fig-align="center"}
@@ -767,9 +767,9 @@ Blog posts on the parts that generalise. No dates promised.
 :::
 
 ::: {}
-Deploy them
+Keep them running
 
-Nothing is deployed. That is the next piece of work, not a footnote.
+All ten are deployed on Connect Cloud now. Keeping them current is the part that does not end.
 :::
 :::
 
@@ -802,9 +802,9 @@ What a scientist walks away from the demo with.
 :::
 
 ::: {.w4}
-Three more applications
+The other applications
 
-Differential expression, pathway activity, drug reversal.
+The five focused apps, the two rendering engines, and what sits under all of them.
 :::
 :::
 
@@ -863,6 +863,19 @@ The front door for a dataset that didn't have one.
 :::
 
 
+## Five focused applications {visibility="uncounted"}
+
+::: {.kicker}
+Recount Explorer, DE Explorer, Signature Scoring, Drug Perturbation and Genome Explorer. One common workflow each, wrapped so somebody else can run it.
+:::
+
+![](assets/screens/focused-apps.png){.nostretch width=80% fig-align="center"}
+
+::: {.payoff}
+An analysis can end in a tool, not in a script the next person has to rerun.
+:::
+
+
 ## Which genes changed, and by how much {visibility="uncounted"}
 
 ::: {.kicker}
@@ -911,6 +924,19 @@ If the disease turns genes up, find the compound that turns them down.
 :::
 
 
+## The same page, two engines {visibility="uncounted"}
+
+::: {.kicker}
+[Plotomics Live]{.app} One toggle swaps the GPU React component for the ggplot2 image, over the same server-side computation.
+:::
+
+![](assets/screens/plotomics-live.png){.nostretch width=68% fig-align="center"}
+
+::: {.payoff}
+R stays the analytical engine. The browser does the drawing it is good at.
+:::
+
+
 ## Two things sit under all of them {visibility="uncounted"}
 
 ::: {.walls .g2}
@@ -930,7 +956,7 @@ A validator, biobouncer
 ![](assets/diagrams/biobouncer-overview.svg){.nostretch width=46% fig-align="center"}
 
 ::: {.payoff}
-The second one is public. It is the piece you could use tomorrow.
+Both are public now. Either one is a piece you could use tomorrow.
 :::
 
 
