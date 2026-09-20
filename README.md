@@ -11,10 +11,11 @@ Based on the talk given in September 2026, kept current since.
 
 Ten applications and five packages came out of that summer. Some are tools a
 researcher uses directly: exploring a hundred million single-cell perturbation
-profiles, reviewing a variant across eighteen public databases, ranking candidate
-genes against cited evidence. Others sit underneath and solve the problems that
-kept recurring: validating biological identifiers, talking to external services
-that all fail differently, rendering large scientific figures in a browser.
+profiles, reviewing a variant across eighteen public databases, ranking
+candidate genes against cited evidence. Others sit underneath and solve the
+problems that kept recurring: validating biological identifiers, talking to
+external services that all fail differently, rendering large scientific figures
+in a browser.
 
 Each project has its own repository. The gallery at
 [posit-dev/shiny-showcase-bioinformatics](https://github.com/posit-dev/shiny-showcase-bioinformatics)
@@ -32,8 +33,9 @@ bash scripts/check-assets.sh   # gate it before publishing, see below
 
 The deck links its images and clips rather than inlining them. Inlining seven
 demo recordings produced a 74 MB page. That suits a borrowed laptop and not a
-website, and linking them brings the page itself to about 65 KB. `assets/` therefore
-has to travel with the deck, which is what the staging script is for.
+website, and linking them brings the page itself to about 65 KB. `assets/`
+therefore has to travel with the deck, which is what the staging script is
+for.
 
 `index.html` and `index_files/` are committed, because the deploy workflow stages
 and uploads rather than rendering. Re-render and commit both when the source
