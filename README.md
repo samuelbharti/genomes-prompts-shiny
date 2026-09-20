@@ -15,9 +15,12 @@ that kept turning up across all of them.
 
 ## Resources
 
-Everything below is open source. The ten applications are deployed as well, and
-the [live gallery](https://posit-shiny-showcase-bioinformatics.share.connect.posit.cloud/)
-opens each one in a browser.
+Everything below is open source, and the ten applications are deployed as well.
+The [live gallery](https://posit-shiny-showcase-bioinformatics.share.connect.posit.cloud/)
+opens each one in a browser, and its source,
+[posit-dev/shiny-showcase-bioinformatics](https://github.com/posit-dev/shiny-showcase-bioinformatics),
+holds every application and package with documentation and citation information
+for each one.
 
 ### Ten applications
 
@@ -44,17 +47,15 @@ opens each one in a browser.
 | [plotomics](https://github.com/samuelbharti/plotomics) | One rendering core, three languages | CRAN, PyPI, npm |
 | [biocohort](https://github.com/samuelbharti/biocohort) | How a study stays organised | CRAN |
 
-### Related
+### Bonus resources
 
-- [posit-dev/shiny-showcase-bioinformatics](https://github.com/posit-dev/shiny-showcase-bioinformatics) collects every application and
-  package, with documentation and citation information for each one.
 - [Beyond Bootstrap: Building Custom Shiny UI with React](https://schloerke.com/presentation-2026-09-15-posit-conf-shinyreact/),
   Barret Schloerke's posit::conf 2026 talk on shinyreact, which Plotomics Live
   is built with.
 - [shinyreact-showcase](https://github.com/samuelbharti/shinyreact-showcase), a
   gallery of worked shinyreact examples.
 
-## Building it
+## Building and deploying
 
 You need [Quarto](https://quarto.org). Nothing else.
 
@@ -79,10 +80,9 @@ Pass `--links` to resolve every link over the network as well.
 stages and uploads instead of rendering. Re-render and commit both when the
 source changes.
 
-## Deploying
-
-Pushing to `main` deploys to GitHub Pages when the deck or its assets change.
-`.github/workflows/deploy-site.yml` runs `stage-site.sh` and uploads the result.
+Pushing to `main` then deploys to GitHub Pages, when the deck or its assets
+change. `.github/workflows/deploy-site.yml` runs `stage-site.sh` and uploads
+the result.
 
 ## Preparing a deck for publication
 
