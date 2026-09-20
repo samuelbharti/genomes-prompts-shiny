@@ -978,7 +978,7 @@ validation modes
 :::
 :::
 
-<div class="pills"><span>pattern · cache · remote · existence</span><span class="ok">CRAN · PyPI · GitHub · Zenodo DOI</span></div>
+<div class="pills"><span>pattern · cache · remote · existence</span><span class="ok">CRAN · PyPI · npm · Zenodo DOI</span></div>
 :::
 
 ![](assets/diagrams/biobouncer-overview.svg){.nostretch width=70% fig-align="center"}
@@ -1004,7 +1004,7 @@ kinds of nothing
 :::
 :::
 
-<div class="pills"><span>retry · throttle · cache · batch · timeout</span><span class="ok">CRAN</span></div>
+<div class="pills"><span>retry · throttle · cache · timeout · and three more</span><span class="ok">CRAN</span></div>
 :::
 
 ::: {.walls .g2}
