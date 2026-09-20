@@ -235,6 +235,79 @@ Samuel Bharti
 .reveal .cards.c2 { grid-template-columns: repeat(2, 1fr); }
 .reveal .cards.c5 { grid-template-columns: repeat(5, 1fr); }
 
+/* The five packages as their own stickers. Five across a 1280px slide leaves
+   about 230px each, which holds the hex with room either side, and lets the
+   one-line job wrap to two lines underneath without touching its neighbour. The
+   name sits between them so the eye goes sticker, name, job, in that order.
+
+   Sized by HEIGHT, not width. The five stickers are not all the same aspect
+   ratio, and a shared width leaves the squarer ones visibly shorter than their
+   neighbours, which reads as a mistake rather than as artwork. */
+.reveal .hexrow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.1em;
+  margin-top: .9em;
+}
+.reveal .hexrow > div { text-align: center; }
+.reveal .hexrow img {
+  display: block;
+  height: 185px;
+  width: auto;
+  margin: 0 auto .5em;
+}
+.reveal .hexrow b {
+  display: block;
+  font-size: .62em;
+  font-weight: 600;
+  margin-bottom: .2em;
+}
+/* The ten apps, each as the card drawn for it. Five across leaves ~230px, and
+   the art is 3:2, so a card is about 150px tall and two rows clear the slide
+   with room for the name and its line. The image carries the recognition, the
+   text carries the meaning, so neither has to do both. */
+.reveal .appgrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .5em .75em;
+  margin-top: .7em;
+}
+.reveal .appgrid > div {
+  text-align: center;
+  padding: .3em .3em .4em;
+  border-radius: 4px;
+}
+/* Same job as .cards .on: mark the four the talk stops on, readable from the
+   back, without a border that would fight the artwork's own frame. */
+.reveal .appgrid > div.on { background: rgba(68, 112, 153, .11); }
+.reveal .appgrid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto .32em;
+  border: 1px solid rgba(64, 64, 65, .16);
+  border-radius: 3px;
+}
+.reveal .appgrid b {
+  display: block;
+  font-size: .52em;
+  font-weight: 600;
+  margin-bottom: .1em;
+}
+.reveal .appgrid span {
+  display: block;
+  font-size: .38em;
+  line-height: 1.3;
+  color: rgba(64, 64, 65, .85);
+}
+
+.reveal .hexrow span {
+  display: block;
+  font-size: .44em;
+  line-height: 1.32;
+  color: rgba(64, 64, 65, .85);
+}
+
 /* .on marks the cards the talk actually opens. The other six are names the
    room hears once and never sees again, so the mark has to survive a glance
    from the back of a Zoom grid: a tint plus a heavier left rule, not a colour
@@ -569,6 +642,12 @@ Samuel Bharti
    line, but nothing else, so they get more room than .vrvid. */
 .reveal .demovid.appvid { height: 404px; }
 
+/* recount-explorer and genome-explorer were recorded at 1600x1000, not the
+   1920x1080 every other clip uses. The base rule pins 16/9, so those two sat
+   in white letterbox bars. Give them their real ratio rather than re-encoding
+   the source, which would cost quality to fix a CSS problem. */
+.reveal .demovid.r1610 { aspect-ratio: 16 / 10; }
+
 /* The affordance. A paused clip on a slide is indistinguishable from a
    screenshot, so it needs to say it is a video before anyone clicks. The badge
    is drawn over the clip and removed the moment it first plays, so it is a hint
@@ -701,47 +780,17 @@ document.addEventListener('click', function (e) {
 </section>
 <section id="the-ten-apps-i-built-this-summer" class="slide level2">
 <h2>The ten apps I built this summer</h2>
-<div class="cards c5">
-<div class="on">
-<p>tahoe-explorer</p>
-<p>Plan a reanalysis before spending compute.</p>
-</div>
-<div class="on">
-<p>plotomics-live</p>
-<p>Twenty-six figures, two engines.</p>
-</div>
-<div class="on">
-<p>variant-reviewer</p>
-<p>One variant, without eighteen tabs.</p>
-</div>
-<div class="on">
-<p>genescout</p>
-<p>200 candidates to a ranked thirty.</p>
-</div>
-<div>
-<p>gene-list-builder</p>
-<p>A disease panel from seven sources.</p>
-</div>
-<div>
-<p>recount-explorer</p>
-<p>recount3, without writing any code.</p>
-</div>
-<div>
-<p>de-explorer</p>
-<p>Which genes changed, and by how much.</p>
-</div>
-<div>
-<p>signature-scoring</p>
-<p>Which pathways are active where.</p>
-</div>
-<div>
-<p>drug-perturbation</p>
-<p>Drugs that reverse a disease signature.</p>
-</div>
-<div>
-<p>genome-explorer</p>
-<p>Mutations in genomic context.</p>
-</div>
+<div class="appgrid">
+  <div class="on"><img src="assets/app-thumbnails/tahoe-explorer.png"><b>tahoe-explorer</b><span>Plan a reanalysis before spending compute.</span></div>
+  <div class="on"><img src="assets/app-thumbnails/plotomics-live.png"><b>plotomics-live</b><span>Twenty-six figures, two engines.</span></div>
+  <div class="on"><img src="assets/app-thumbnails/variant-reviewer.png"><b>variant-reviewer</b><span>One variant, without eighteen tabs.</span></div>
+  <div class="on"><img src="assets/app-thumbnails/genescout.png"><b>genescout</b><span>200 candidates to a ranked thirty.</span></div>
+  <div><img src="assets/app-thumbnails/gene-list-builder.png"><b>gene-list-builder</b><span>A disease panel from seven sources.</span></div>
+  <div><img src="assets/app-thumbnails/recount-explorer.png"><b>recount-explorer</b><span>recount3, without writing any code.</span></div>
+  <div><img src="assets/app-thumbnails/de-explorer.png"><b>de-explorer</b><span>Which genes changed, and by how much.</span></div>
+  <div><img src="assets/app-thumbnails/signature-scoring.png"><b>signature-scoring</b><span>Which pathways are active where.</span></div>
+  <div><img src="assets/app-thumbnails/drug-perturbation.png"><b>drug-perturbation</b><span>Drugs that reverse a disease signature.</span></div>
+  <div><img src="assets/app-thumbnails/genome-explorer.png"><b>genome-explorer</b><span>Mutations in genomic context.</span></div>
 </div>
 </section>
 <section id="and-five-packages-underneath-them" class="slide level2">
@@ -749,10 +798,12 @@ document.addEventListener('click', function (e) {
 <div class="kicker">
 <p>Every one of these came out of a problem the apps kept hitting. Solve it once, and the next app gets it for free.</p>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/diagrams/package-stack.png" class="quarto-figure quarto-figure-center" style="width:62.0%"></p>
-</figure>
+<div class="hexrow">
+  <div><img src="assets/logos/biobouncer-logo.svg"><b>biobouncer</b><span>whether an identifier means anything</span></div>
+  <div><img src="assets/logos/biohttp.svg"><b>biohttp</b><span>how we talk to a service</span></div>
+  <div><img src="assets/logos/bioclients.svg"><b>bioclients</b><span>what each biological service returns</span></div>
+  <div><img src="assets/logos/plotomics.svg"><b>plotomics</b><span>one rendering core, three languages</span></div>
+  <div><img src="assets/logos/biocohort.svg"><b>biocohort</b><span>how a study stays organised</span></div>
 </div>
 </section>
 <section id="twenty-six-bespoke-figures" class="slide level2">
@@ -795,35 +846,23 @@ document.addEventListener('click', function (e) {
 <span>R Shiny</span><span>Python Shiny</span><span class="ok">Shiny React</span><span class="alt push">GPU</span><span class="alt">ggplot2</span>
 </div>
 </section>
-<section id="section-1" class="slide level2 heroslide">
-<h2></h2>
-<span class="vidwrap"><video class="demovid" data-src="assets/demo/gallery-tour.mp4" muted="" loop="" playsinline="" preload="auto"></video></span>
-</section>
-<section id="biobouncer" class="slide level2">
-<h2><img data-src="assets/logos/biobouncer-logo.svg" class="titlelogo"> biobouncer</h2>
+<section id="the-same-page-two-engines" class="slide level2">
+<h2>The same page, two engines</h2>
 <div class="kicker">
-<p>The other thing every one of those apps calls first.</p>
-</div>
-<div class="bbrow">
-<div class="bignums">
-<div>
-<p>48</p>
-<p>identifier systems</p>
-</div>
-<div>
-<p>4</p>
-<p>validation modes</p>
-</div>
-</div>
-<div class="pills">
-<span>pattern · cache · remote · existence</span><span class="ok">CRAN · PyPI · GitHub · Zenodo DOI</span>
-</div>
+<p><span class="app">Plotomics Live</span> One toggle swaps the GPU React component for the ggplot2 image, over the same server-side computation.</p>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="assets/diagrams/biobouncer-overview.svg" class="nostretch quarto-figure quarto-figure-center" style="width:70.0%"></p>
+<p><img data-src="assets/screens/plotomics-live.png" class="quarto-figure quarto-figure-center" style="width:58.0%"></p>
 </figure>
 </div>
+<div class="payoff">
+<p>R stays the analytical engine. The browser does the drawing it is good at.</p>
+</div>
+</section>
+<section id="section-1" class="slide level2 heroslide">
+<h2></h2>
+<span class="vidwrap"><video class="demovid" data-src="assets/demo/gallery-tour.mp4" muted="" loop="" playsinline="" preload="auto"></video></span>
 </section>
 <section id="what-tahoe-100m-is" class="slide level2">
 <h2>What Tahoe-100M is</h2>
@@ -859,75 +898,7 @@ document.addEventListener('click', function (e) {
 <h2></h2>
 <span class="vidwrap"><video class="demovid" data-src="assets/demo/tahoe-explorer-90s.mp4" muted="" playsinline="" preload="auto"></video></span>
 </section>
-<section id="genescout" class="slide level2">
-<h2><img data-src="assets/logos/genescout-mascot.svg" class="titlelogo"> GeneScout</h2>
-<div class="act">
-<p>PROMPTS</p>
-</div>
-<div class="vrsplit">
-  <div class="vrleft">
-    <p class="vrcap">Two hundred candidate genes,<br>reduced to <span class="vrnum">30</span>.</p>
-    <div class="pills"><span class="alt">UI built with Claude Design</span></div>
-  </div>
-  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="assets/demo/genescout-15s.mp4" data-poster-t="8" muted="" loop="" playsinline="" preload="auto"></video></span>
-</div>
-</section>
-<section id="variant-reviewer" class="slide level2">
-<h2>variant-reviewer</h2>
-<div class="kicker">
-<p>A different shape of problem: scattered, not big.</p>
-</div>
-<div class="vrsplit">
-  <div class="vrleft">
-    <p class="vrcap">That is a variant.<br>One letter, out of <span class="vrnum">3,000,000,000</span>.</p>
-    <div class="dna">
-      <div class="seq"><span class="who">reference</span><span class="strand"><span class="A">A</span><span class="C">C</span><span class="G hit">G</span><span class="T">T</span><span class="A">A</span><span class="C">C</span></span></div>
-      <div class="seq"><span class="who">this patient</span><span class="strand"><span class="A">A</span><span class="C">C</span><span class="A hit">A</span><span class="T">T</span><span class="A">A</span><span class="C">C</span></span></div>
-    </div>
-    <p class="vrline">One search box at the top.<br>Eighteen databases, underneath.</p>
-  </div>
-  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="assets/demo/variant-reviewer-15s.mp4" data-poster-t="5" muted="" loop="" playsinline="" preload="auto"></video></span>
-</div>
-</section>
-<section id="next-steps" class="slide level2">
-<h2>Next steps</h2>
-<div class="cards c2">
-<div>
-<p>Write it up</p>
-<p>Blog posts on the parts that generalise. No dates promised.</p>
-</div>
-<div>
-<p>Keep them running</p>
-<p>All ten are deployed on Connect Cloud now. Keeping them current is the part that does not end.</p>
-</div>
-</div>
-<div class="payoff">
-<p>The data got big and scattered. Their tools didn’t follow. Shiny was a good place to fix that.</p>
-</div>
-</section>
-<section id="thank-you-shiny-team" class="slide level2">
-<h2>Thank you, Shiny team</h2>
-<div class="kicker">
-<p>I came in with biology problems. Almost none of my questions turned out to be biology questions. Thank you to Carson Sievert, and to all of you.</p>
-</div>
-</section>
-<section id="supplementary" class="slide level2" data-visibility="uncounted">
-<h2>Supplementary</h2>
-<div class="kicker">
-<p>The talk ends on the previous slide. What follows is here for questions.</p>
-</div>
-<div class="walls g2">
-<div class="w1">
-<p>More on Tahoe</p>
-<p>What a scientist walks away from the demo with.</p>
-</div>
-<div class="w4">
-<p>The other applications</p>
-<p>The five focused apps, the two rendering engines, and what sits under all of them.</p>
-</div>
-</div>
-</section>
-<section id="you-planned-it-before-you-paid-for-it" class="slide level2" data-visibility="uncounted">
+<section id="you-planned-it-before-you-paid-for-it" class="slide level2">
 <h2>You planned it before you paid for it</h2>
 <div class="flow">
 <div>
@@ -965,7 +936,51 @@ document.addEventListener('click', function (e) {
 <p>The front door for a dataset that didn’t have one.</p>
 </div>
 </section>
-<section id="five-focused-applications" class="slide level2" data-visibility="uncounted">
+<section id="genescout" class="slide level2">
+<h2><img data-src="assets/logos/genescout-mascot.svg" class="titlelogo"> GeneScout</h2>
+<div class="act">
+<p>PROMPTS</p>
+</div>
+<div class="vrsplit">
+  <div class="vrleft">
+    <p class="vrcap">Two hundred candidate genes,<br>reduced to <span class="vrnum">30</span>.</p>
+    <div class="pills"><span class="alt">UI built with Claude Design</span></div>
+  </div>
+  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="assets/demo/genescout-15s.mp4" data-poster-t="8" muted="" loop="" playsinline="" preload="auto"></video></span>
+</div>
+</section>
+<section id="one-disease-name-one-defensible-panel" class="slide level2">
+<h2>One disease name, one defensible panel</h2>
+<div class="kicker">
+<p><span class="app">Gene List Builder</span> Breast cancer resolves to MONDO:0007254, then seven sources are queried in parallel.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/app-thumbnails/gene-list-builder.png" class="quarto-figure quarto-figure-center" style="width:40.0%"></p>
+</figure>
+</div>
+<div class="payoff">
+<p>The weights are visible and adjustable. Every gene traces back to its source database.</p>
+</div>
+</section>
+<section id="variant-reviewer" class="slide level2">
+<h2>variant-reviewer</h2>
+<div class="kicker">
+<p>A different shape of problem: scattered, not big.</p>
+</div>
+<div class="vrsplit">
+  <div class="vrleft">
+    <p class="vrcap">That is a variant.<br>One letter, out of <span class="vrnum">3,000,000,000</span>.</p>
+    <div class="dna">
+      <div class="seq"><span class="who">reference</span><span class="strand"><span class="A">A</span><span class="C">C</span><span class="G hit">G</span><span class="T">T</span><span class="A">A</span><span class="C">C</span></span></div>
+      <div class="seq"><span class="who">this patient</span><span class="strand"><span class="A">A</span><span class="C">C</span><span class="A hit">A</span><span class="T">T</span><span class="A">A</span><span class="C">C</span></span></div>
+    </div>
+    <p class="vrline">One search box at the top.<br>Eighteen databases, underneath.</p>
+  </div>
+  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="assets/demo/variant-reviewer-15s.mp4" data-poster-t="5" muted="" loop="" playsinline="" preload="auto"></video></span>
+</div>
+</section>
+<section id="five-focused-applications" class="slide level2">
 <h2>Five focused applications</h2>
 <div class="kicker">
 <p>Recount Explorer, DE Explorer, Signature Scoring, Drug Perturbation and Genome Explorer. One common workflow each, wrapped so somebody else can run it.</p>
@@ -979,7 +994,17 @@ document.addEventListener('click', function (e) {
 <p>An analysis can end in a tool, not in a script the next person has to rerun.</p>
 </div>
 </section>
-<section id="which-genes-changed-and-by-how-much" class="slide level2" data-visibility="uncounted">
+<section id="one-catalogue-18998-studies" class="slide level2">
+<h2>One catalogue, 18,998 studies</h2>
+<div class="kicker">
+<p><span class="app">Recount Explorer</span> recount3, human and mouse. Browse the catalogue, check quality, run a PCA, export what you need, without writing any code.</p>
+</div>
+<span class="vidwrap"><video class="demovid appvid r1610" data-src="assets/demo/recount-explorer-demo.mp4" muted="" loop="" playsinline="" preload="auto"></video></span>
+<div class="payoff">
+<p>The data was already public. Opening it should never have needed a script first.</p>
+</div>
+</section>
+<section id="which-genes-changed-and-by-how-much" class="slide level2">
 <h2>Which genes changed, and by how much</h2>
 <div class="kicker">
 <p><span class="app">DE Explorer</span> Real TCGA lung data: adenocarcinoma against squamous-cell, plus normal tissue.</p>
@@ -989,7 +1014,7 @@ document.addEventListener('click', function (e) {
 <p>Move a threshold, every panel follows. No re-running anything.</p>
 </div>
 </section>
-<section id="which-pathways-are-active-and-where" class="slide level2" data-visibility="uncounted">
+<section id="which-pathways-are-active-and-where" class="slide level2">
 <h2>Which pathways are active, and where</h2>
 <div class="kicker">
 <p><span class="app">Signature Scoring</span> Breast cancer, 50 Hallmark pathways, one subtype against another.</p>
@@ -999,7 +1024,7 @@ document.addEventListener('click', function (e) {
 <p>A single gene is noisy. A whole pathway is a signal.</p>
 </div>
 </section>
-<section id="find-a-drug-that-reverses-the-disease" class="slide level2" data-visibility="uncounted">
+<section id="find-a-drug-that-reverses-the-disease" class="slide level2">
 <h2>Find a drug that reverses the disease</h2>
 <div class="kicker">
 <p><span class="app">Drug Perturbation</span> Connectivity scoring, in the spirit of CMap and LINCS.</p>
@@ -1009,39 +1034,174 @@ document.addEventListener('click', function (e) {
 <p>If the disease turns genes up, find the compound that turns them down.</p>
 </div>
 </section>
-<section id="the-same-page-two-engines" class="slide level2" data-visibility="uncounted">
-<h2>The same page, two engines</h2>
+<section id="mutations-put-back-in-genomic-context" class="slide level2">
+<h2>Mutations, put back in genomic context</h2>
 <div class="kicker">
-<p><span class="app">Plotomics Live</span> One toggle swaps the GPU React component for the ggplot2 image, over the same server-side computation.</p>
+<p><span class="app">Genome Explorer</span> Recurrent TCGA-BRCA driver mutations on hg19, drawn with igv.js. Click a variant and the browser zooms to it.</p>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/screens/plotomics-live.png" class="quarto-figure quarto-figure-center" style="width:68.0%"></p>
-</figure>
-</div>
+<span class="vidwrap"><video class="demovid appvid r1610" data-src="assets/demo/genome-explorer-demo.mp4" muted="" loop="" playsinline="" preload="auto"></video></span>
 <div class="payoff">
-<p>R stays the analytical engine. The browser does the drawing it is good at.</p>
+<p>A cohort-wide pattern and a single locus are the same view at two zoom levels.</p>
 </div>
 </section>
-<section id="two-things-sit-under-all-of-them" class="slide level2" data-visibility="uncounted">
-<h2>Two things sit under all of them</h2>
-<div class="walls g2">
-<div class="w1">
-<p>A visualization layer</p>
-<p>That Xenium slide was a million points on a GPU. The same components drop into R, Python or React unchanged.</p>
+<section id="biobouncer" class="slide level2">
+<h2><img data-src="assets/logos/biobouncer-logo.svg" class="titlelogo"> biobouncer</h2>
+<div class="kicker">
+<p>The other thing every one of those apps calls first.</p>
 </div>
-<div class="w4">
-<p>A validator, biobouncer</p>
-<p>“Is this even a real identifier?”, answered before anything spends a network call.</p>
+<div class="bbrow">
+<div class="bignums">
+<div>
+<p>48</p>
+<p>identifier systems</p>
+</div>
+<div>
+<p>4</p>
+<p>validation modes</p>
+</div>
+</div>
+<div class="pills">
+<span>pattern · cache · remote · existence</span><span class="ok">CRAN · PyPI · GitHub · Zenodo DOI</span>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="assets/diagrams/biobouncer-overview.svg" class="quarto-figure quarto-figure-center" style="width:46.0%"></p>
+<p><img data-src="assets/diagrams/biobouncer-overview.svg" class="nostretch quarto-figure quarto-figure-center" style="width:70.0%"></p>
 </figure>
 </div>
+</section>
+<section id="biohttp" class="slide level2">
+<h2><img data-src="assets/logos/biohttp.svg" class="titlelogo"> biohttp</h2>
+<div class="kicker">
+<p>Every external service fails in its own way. This is the part nobody should have to write twice.</p>
+</div>
+<div class="bbrow">
+<div class="bignums">
+<div>
+<p>7</p>
+<p>concerns handled once</p>
+</div>
+<div>
+<p>2</p>
+<p>kinds of nothing</p>
+</div>
+</div>
+<div class="pills">
+<span>retry · throttle · cache · batch · timeout</span><span class="ok">CRAN</span>
+</div>
+</div>
+<div class="walls g2">
+<div class="w1">
+<p>The service said no</p>
+<p>A clean empty answer. The gene is real, there is simply nothing recorded on it.</p>
+</div>
+<div class="w4">
+<p>The service fell over</p>
+<p>A timeout, a 500, a rate limit. Same silence on screen, completely different problem.</p>
+</div>
+</div>
 <div class="payoff">
-<p>Both are public now. Either one is a piece you could use tomorrow.</p>
+<p>Telling those two apart is the whole reason an app can lean on eight services at once.</p>
+</div>
+</section>
+<section id="bioclients" class="slide level2">
+<h2><img data-src="assets/logos/bioclients.svg" class="titlelogo"> bioclients</h2>
+<div class="kicker">
+<p>biohttp knows how to talk to a service. This one knows what each service is saying back.</p>
+</div>
+<div class="bbrow">
+<div class="bignums">
+<div>
+<p>29</p>
+<p>biological services</p>
+</div>
+<div>
+<p>2</p>
+<p>halves, kept apart</p>
+</div>
+</div>
+<div class="pills">
+<span>Ensembl · UniProt · gnomAD · ClinVar · and 25 more</span><span class="ok">CRAN</span>
+</div>
+</div>
+<div class="payoff">
+<p>Fetching and parsing are separate, so a stored response is enough to test a parser. No live API, no flaky test.</p>
+</div>
+</section>
+<section id="plotomics" class="slide level2">
+<h2><img data-src="assets/logos/plotomics.svg" class="titlelogo"> plotomics</h2>
+<div class="kicker">
+<p>The rendering core under Plotomics Live, and under anything else that wants these figures.</p>
+</div>
+<div class="bbrow">
+<div class="bignums">
+<div>
+<p>17</p>
+<p>components</p>
+</div>
+<div>
+<p>1</p>
+<p>core, three languages</p>
+</div>
+</div>
+<div class="pills">
+<span>WebGL · Canvas · binary buffers, not JSON</span><span class="ok">CRAN · PyPI · npm</span>
+</div>
+</div>
+<div class="payoff">
+<p>Fifteen ship in all three languages. The two genome browsers are JavaScript and Python only.</p>
+</div>
+</section>
+<section id="biocohort" class="slide level2">
+<h2><img data-src="assets/logos/biocohort.svg" class="titlelogo"> biocohort</h2>
+<div class="kicker">
+<p>The least glamorous one, and the one my own research leans on hardest. Before an API or a figure matters, the study has to stay organised.</p>
+</div>
+<div class="flow">
+<div>
+<p>Subjects and samples</p>
+<p>Who, and what came off them.</p>
+</div>
+<div>
+<p>Assays</p>
+<p>RNA, ATAC and whole genome, described in one manifest.</p>
+</div>
+<div>
+<p>Corrections</p>
+<p>A swapped label, fixed once, stays fixed.</p>
+</div>
+<div>
+<p>Sample sheets</p>
+<p>Generated from the manifest, not typed by hand.</p>
+</div>
+</div>
+<div class="pills">
+<span>one manifest per study · many assays · many organisms</span><span class="ok">CRAN</span>
+</div>
+<div class="payoff">
+<p>These are cheap problems early and very expensive ones later.</p>
+</div>
+</section>
+<section id="next-steps" class="slide level2">
+<h2>Next steps</h2>
+<div class="cards c2">
+<div>
+<p>Write it up</p>
+<p>Blog posts on the parts that generalise. No dates promised.</p>
+</div>
+<div>
+<p>Keep them running</p>
+<p>All ten are deployed on Connect Cloud now. Keeping them current is the part that does not end.</p>
+</div>
+</div>
+<div class="payoff">
+<p>The data got big and scattered. Their tools didn’t follow. Shiny was a good place to fix that.</p>
+</div>
+</section>
+<section id="thank-you-shiny-team" class="slide level2">
+<h2>Thank you, Shiny team</h2>
+<div class="kicker">
+<p>I came in with biology problems. Almost none of my questions turned out to be biology questions. Thank you to Barret Schloerke and Carson Sievert, and to all of you.</p>
 </div>
 
 </section>
