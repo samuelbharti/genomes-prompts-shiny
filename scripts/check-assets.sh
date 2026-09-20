@@ -2,7 +2,7 @@
 # Sanity gate for the deck before it goes to Pages.
 #
 # The deck is the repository: index.qmd at the root, index.html committed beside
-# it, and assets/ linked rather than inlined. That last point inverts what this
+# it, and assets/ linked instead of inlined. That last point inverts what this
 # script used to check. With embed-resources off, a base64 payload in the output
 # is a regression, not the goal, and every referenced path has to survive the
 # trip into _deploy/ because nothing is carried inside the HTML.
@@ -58,7 +58,7 @@ done
 # design note naming a private project got published once already.
 #
 # Test the SOURCE, because a clean source cannot leak one. The output carries
-# comments Quarto's own template emits, so those are named here rather than
+# comments Quarto's own template emits, so those are named here instead of
 # counted: anything not on this list is printed for a human to judge.
 src=$(grep -c -- '<!--' "$QMD")
 if [ "$src" -gt 0 ]; then
@@ -76,7 +76,20 @@ else
 fi
 
 echo "== 5. withheld material is not referenced =="
-for pat in 'assets/memes' 'assets/photos' 'shinyshadcn' 'shinymui' 'lifescience-shiny-gallery'; do
+# The excluded asset paths are already named in the README, so they live here.
+# The names of the withheld repositories are not publishable: this repo's own
+# rule is that they appear nowhere in it, and a gate that spells them out breaks
+# the rule it enforces. They live in a gitignored file instead, one per line,
+# so the check runs where it matters and the names never ship.
+pats='assets/memes assets/photos'
+NAMES="docs/local/withheld-names.txt"
+if [ -f "$NAMES" ]; then
+  pats="$pats $(grep -v '^[[:space:]]*#' "$NAMES" | tr '
+' ' ')"
+else
+  echo "  note: $NAMES absent, checking paths only"
+fi
+for pat in $pats; do
   c=$(grep -ci -- "$pat" "$HTML")
   # The thank-you slide's generated id contains "shiny-team", which is not the
   # photograph. Match the path, not the words.
