@@ -30,19 +30,5 @@ The software in this repository is MIT licensed instead: everything under
 | `assets/logos/genescout-mascot.svg` | [genescout](https://github.com/samuelbharti/genescout), MIT |
 | `assets/diagrams/*.svg` | Drawn for this repository |
 | `assets/demo/*.mp4` | Screen recordings of the applications |
-| `assets/app-thumbnails/*.png` (20) | See the note below |
-
-### A note on `assets/app-thumbnails/`
-
-These ten boards, and their `small/` variants, were rendered from
-`thumbnails/src/render_boards.R` in
-[posit-dev/shiny-showcase-bioinformatics](https://github.com/posit-dev/shiny-showcase-bioinformatics).
-That repository carries no licence file, so redistribution terms are not settled
-by it, and the work was produced during an internship at Posit.
-
-**Resolve this with Posit before this repository is made public.** The options
-are to confirm redistribution is fine, to re-render the boards from a script
-whose ownership is clear, or to drop them and let the site cards fall back to
-`placeholder.svg`.
 
 [cc-by]: https://creativecommons.org/licenses/by/4.0/

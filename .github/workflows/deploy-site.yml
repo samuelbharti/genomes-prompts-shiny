@@ -4,12 +4,9 @@ on:
   push:
     branches: [main]
     paths:
-      - "site/**"
-      - "deck/story-v2.html"
-      - "assets/app-thumbnails/**"
-      - "assets/demo/**"
-      - "assets/logos/**"
-      - "assets/photos/**"
+      - "index.html"
+      - "index_files/**"
+      - "assets/**"
       - "scripts/stage-site.sh"
   workflow_dispatch:
 
@@ -32,11 +29,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # site/ is the source of the site, but it links to the deck and to
-      # assets that live at the repo root (so they aren't duplicated in
-      # git). scripts/stage-site.sh assembles everything the pages
-      # reference into one directory; preview-site.sh runs the same
-      # script for local preview, so the two never drift apart.
+      # The deck is the site. stage-site.sh gathers the rendered deck, its
+      # support files and the assets it links into one directory.
       - name: Assemble Pages artifact
         run: bash scripts/stage-site.sh _deploy
 

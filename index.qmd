@@ -492,14 +492,14 @@ document.addEventListener('click', function (e) {
 You all know Shiny. So today is about what I point it at.
 :::
 
-![](../assets/diagrams/data-problem.svg){.nostretch width=92% fig-align="center"}
+![](assets/diagrams/data-problem.svg){.nostretch width=92% fig-align="center"}
 
 ::: {.payoff}
 Their tools didn't keep up. That gap is the job.
 :::
 
 
-## {.heroslide background-image="../assets/thumbs/xenium.png" background-size="cover"}
+## {.heroslide background-image="assets/thumbs/xenium.png" background-size="cover"}
 
 ::: {.act}
 GENOMES
@@ -606,31 +606,31 @@ The omics visualization gallery. Every one of these is a component you can call 
   <div class="vrow">
     <div class="vlabel">Single-cell &amp; spatial<b>6</b></div>
     <div class="vtiles">
-      <img src="../assets/thumbs/umap.png"><img src="../assets/thumbs/tahoe.png"><img src="../assets/thumbs/visium.png"><img src="../assets/thumbs/dotplot.png"><img src="../assets/thumbs/violin.png"><img src="../assets/thumbs/xenium.png">
+      <img src="assets/thumbs/umap.png"><img src="assets/thumbs/tahoe.png"><img src="assets/thumbs/visium.png"><img src="assets/thumbs/dotplot.png"><img src="assets/thumbs/violin.png"><img src="assets/thumbs/xenium.png">
     </div>
   </div>
   <div class="vrow">
     <div class="vlabel">Gene expression<b>4</b></div>
     <div class="vtiles">
-      <img src="../assets/thumbs/clustermap.png"><img src="../assets/thumbs/pca.png"><img src="../assets/thumbs/volcano.png"><img src="../assets/thumbs/heatmap.png">
+      <img src="assets/thumbs/clustermap.png"><img src="assets/thumbs/pca.png"><img src="assets/thumbs/volcano.png"><img src="assets/thumbs/heatmap.png">
     </div>
   </div>
   <div class="vrow">
     <div class="vlabel">Cancer genomics<b>6</b></div>
     <div class="vtiles">
-      <img src="../assets/thumbs/survival.png"><img src="../assets/thumbs/oncoplot.png"><img src="../assets/thumbs/upset.png"><img src="../assets/thumbs/signatures.png"><img src="../assets/thumbs/lollipop.png"><img src="../assets/thumbs/treemap.png">
+      <img src="assets/thumbs/survival.png"><img src="assets/thumbs/oncoplot.png"><img src="assets/thumbs/upset.png"><img src="assets/thumbs/signatures.png"><img src="assets/thumbs/lollipop.png"><img src="assets/thumbs/treemap.png">
     </div>
   </div>
   <div class="vrow">
     <div class="vlabel">Genome &amp; epigenome<b>6</b></div>
     <div class="vtiles">
-      <img src="../assets/thumbs/hic.png"><img src="../assets/thumbs/manhattan.png"><img src="../assets/thumbs/igv.png"><img src="../assets/thumbs/gosling.png"><img src="../assets/thumbs/atac.png"><img src="../assets/thumbs/eqtl.png">
+      <img src="assets/thumbs/hic.png"><img src="assets/thumbs/manhattan.png"><img src="assets/thumbs/igv.png"><img src="assets/thumbs/gosling.png"><img src="assets/thumbs/atac.png"><img src="assets/thumbs/eqtl.png">
     </div>
   </div>
   <div class="vrow">
     <div class="vlabel">Structure &amp; networks<b>4</b></div>
     <div class="vtiles">
-      <img src="../assets/thumbs/ndarray.png"><img src="../assets/thumbs/network.png"><img src="../assets/thumbs/protein.png"><img src="../assets/thumbs/pae.png"></div>
+      <img src="assets/thumbs/ndarray.png"><img src="assets/thumbs/network.png"><img src="assets/thumbs/protein.png"><img src="assets/thumbs/pae.png"></div>
   </div>
 </div>
 ```
@@ -643,12 +643,12 @@ The omics visualization gallery. Every one of these is a component you can call 
 
 
 ```{=html}
-<span class="vidwrap"><video class="demovid" data-src="../assets/demo/gallery-tour.mp4"
+<span class="vidwrap"><video class="demovid" data-src="assets/demo/gallery-tour.mp4"
        muted loop playsinline preload="auto"></video></span>
 ```
 
 
-## ![](../assets/logos/biobouncer-logo.svg){.titlelogo} biobouncer
+## ![](assets/logos/biobouncer-logo.svg){.titlelogo} biobouncer
 
 ::: {.kicker}
 The other thing every one of those apps calls first.
@@ -672,7 +672,7 @@ validation modes
 <div class="pills"><span>pattern · cache · remote · existence</span><span class="ok">GitHub · PyPI · Zenodo DOI</span><span class="alt">submitted to CRAN</span></div>
 :::
 
-![](../assets/diagrams/biobouncer-overview.svg){.nostretch width=70% fig-align="center"}
+![](assets/diagrams/biobouncer-overview.svg){.nostretch width=70% fig-align="center"}
 
 
 ## What Tahoe-100M is
@@ -681,7 +681,7 @@ validation modes
 One public dataset. Free to anyone. And effectively nobody can open it.
 :::
 
-![](../assets/diagrams/tahoe-experiment.svg){.nostretch width=74% fig-align="center"}
+![](assets/diagrams/tahoe-experiment.svg){.nostretch width=74% fig-align="center"}
 
 ::: {.bignums}
 ::: {}
@@ -703,19 +703,19 @@ cells, one row each
 :::
 :::
 
-![](../assets/diagrams/scientist-today.svg){.nostretch width=62% fig-align="center"}
+![](assets/diagrams/scientist-today.svg){.nostretch width=62% fig-align="center"}
 
 
 ## {.heroslide}
 
 
 ```{=html}
-<span class="vidwrap"><video class="demovid" data-src="../assets/demo/tahoe-explorer-90s.mp4"
+<span class="vidwrap"><video class="demovid" data-src="assets/demo/tahoe-explorer-90s.mp4"
        muted playsinline preload="auto"></video></span>
 ```
 
 
-## ![](../assets/logos/genescout-mascot.svg){.titlelogo} GeneScout
+## ![](assets/logos/genescout-mascot.svg){.titlelogo} GeneScout
 
 ::: {.act}
 PROMPTS
@@ -727,7 +727,7 @@ PROMPTS
     <p class="vrcap">Two hundred candidate genes,<br>reduced to <span class="vrnum">30</span>.</p>
     <div class="pills"><span class="alt">UI built with Claude Design</span></div>
   </div>
-  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="../assets/demo/genescout-15s.mp4" data-poster-t="8"
+  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="assets/demo/genescout-15s.mp4" data-poster-t="8"
          muted loop playsinline preload="auto"></video></span>
 </div>
 ```
@@ -751,7 +751,7 @@ A different shape of problem: scattered, not big.
     </div>
     <p class="vrline">One search box at the top.<br>Eighteen databases, underneath.</p>
   </div>
-  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="../assets/demo/variant-reviewer-15s.mp4" data-poster-t="5"
+  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="assets/demo/variant-reviewer-15s.mp4" data-poster-t="5"
          muted loop playsinline preload="auto"></video></span>
 </div>
 ```
@@ -870,7 +870,7 @@ The front door for a dataset that didn't have one.
 :::
 
 ```{=html}
-<span class="vidwrap"><video class="demovid appvid" data-src="../assets/demo/de-explorer-10s.mp4"
+<span class="vidwrap"><video class="demovid appvid" data-src="assets/demo/de-explorer-10s.mp4"
        muted loop playsinline preload="auto"></video></span>
 ```
 
@@ -886,7 +886,7 @@ Move a threshold, every panel follows. No re-running anything.
 :::
 
 ```{=html}
-<span class="vidwrap"><video class="demovid appvid" data-src="../assets/demo/signature-scoring-10s.mp4"
+<span class="vidwrap"><video class="demovid appvid" data-src="assets/demo/signature-scoring-10s.mp4"
        muted loop playsinline preload="auto"></video></span>
 ```
 
@@ -902,7 +902,7 @@ A single gene is noisy. A whole pathway is a signal.
 :::
 
 ```{=html}
-<span class="vidwrap"><video class="demovid appvid" data-src="../assets/demo/drug-perturbation-10s.mp4"
+<span class="vidwrap"><video class="demovid appvid" data-src="assets/demo/drug-perturbation-10s.mp4"
        muted loop playsinline preload="auto"></video></span>
 ```
 
@@ -927,7 +927,7 @@ A validator, biobouncer
 :::
 :::
 
-![](../assets/diagrams/biobouncer-overview.svg){.nostretch width=46% fig-align="center"}
+![](assets/diagrams/biobouncer-overview.svg){.nostretch width=46% fig-align="center"}
 
 ::: {.payoff}
 The second one is public. It is the piece you could use tomorrow.
