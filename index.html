@@ -266,6 +266,42 @@ Samuel Bharti
    the art is 3:2, so a card is about 150px tall and two rows clear the slide
    with room for the name and its line. The image carries the recognition, the
    text carries the meaning, so neither has to do both. */
+/* The closing slide. Fifteen names is a lot of text for one canvas, so it is
+   set as two groups side by side: the ten applications down two sub-columns,
+   the five packages down one. grid-auto-flow is column on the wide group so
+   the eye reads 1-5 then 6-10, which a row-filled grid would scramble. */
+.reveal .findit {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.4em;
+  margin-top: .7em;
+}
+.reveal .findit .flabel {
+  font-size: .4em;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: rgba(64, 64, 65, .55);
+  margin-bottom: .5em;
+  padding-bottom: .35em;
+  border-bottom: 1px solid rgba(64, 64, 65, .18);
+}
+.reveal .findit .flist { display: grid; gap: .3em 1em; }
+.reveal .findit .flist.two {
+  grid-auto-flow: column;
+  grid-template-rows: repeat(5, auto);
+  grid-template-columns: 1fr 1fr;
+}
+.reveal .findit a {
+  font-size: .5em;
+  color: #447099;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(68, 112, 153, .32);
+  /* A grid item stretches to its cell, so the underline ran the full column
+     width and read as a table rule. Shrink each link to its own text. */
+  justify-self: start;
+}
+
 .reveal .appgrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -1196,6 +1232,42 @@ document.addEventListener('click', function (e) {
 </div>
 <div class="payoff">
 <p>The data got big and scattered. Their tools didn’t follow. Shiny was a good place to fix that.</p>
+</div>
+</section>
+<section id="where-to-find-all-of-it" class="slide level2">
+<h2>Where to find all of it</h2>
+<div class="kicker">
+<p>Every one of these is open source, and every application is already running somewhere you can click.</p>
+</div>
+<div class="findit">
+  <div>
+    <div class="flabel">Ten applications</div>
+    <div class="flist two">
+      <a href="https://github.com/samuelbharti/tahoe-explorer" target="_blank" rel="noopener">tahoe-explorer</a>
+      <a href="https://github.com/samuelbharti/plotomics-live" target="_blank" rel="noopener">plotomics-live</a>
+      <a href="https://github.com/samuelbharti/variant-reviewer" target="_blank" rel="noopener">variant-reviewer</a>
+      <a href="https://github.com/samuelbharti/genescout" target="_blank" rel="noopener">genescout</a>
+      <a href="https://github.com/samuelbharti/gene-list-builder" target="_blank" rel="noopener">gene-list-builder</a>
+      <a href="https://github.com/samuelbharti/recount-explorer" target="_blank" rel="noopener">recount-explorer</a>
+      <a href="https://github.com/posit-dev/shiny-showcase-bioinformatics/tree/main/apps/de-explorer" target="_blank" rel="noopener">de-explorer</a>
+      <a href="https://github.com/posit-dev/shiny-showcase-bioinformatics/tree/main/apps/signature-scoring" target="_blank" rel="noopener">signature-scoring</a>
+      <a href="https://github.com/posit-dev/shiny-showcase-bioinformatics/tree/main/apps/drug-perturbation" target="_blank" rel="noopener">drug-perturbation</a>
+      <a href="https://github.com/posit-dev/shiny-showcase-bioinformatics/tree/main/apps/genome-explorer" target="_blank" rel="noopener">genome-explorer</a>
+    </div>
+  </div>
+  <div>
+    <div class="flabel">Five packages, all on CRAN</div>
+    <div class="flist">
+      <a href="https://github.com/samuelbharti/biobouncer" target="_blank" rel="noopener">biobouncer</a>
+      <a href="https://github.com/samuelbharti/biohttp" target="_blank" rel="noopener">biohttp</a>
+      <a href="https://github.com/samuelbharti/bioclients" target="_blank" rel="noopener">bioclients</a>
+      <a href="https://github.com/samuelbharti/plotomics" target="_blank" rel="noopener">plotomics</a>
+      <a href="https://github.com/samuelbharti/biocohort" target="_blank" rel="noopener">biocohort</a>
+    </div>
+  </div>
+</div>
+<div class="payoff">
+<p>All ten run in the <a href="https://posit-shiny-showcase-bioinformatics.share.connect.posit.cloud/" target="_blank">Shiny Showcase gallery</a>, collected with their source in <a href="https://github.com/posit-dev/shiny-showcase-bioinformatics" target="_blank">posit-dev/shiny-showcase-bioinformatics</a>.</p>
 </div>
 </section>
 <section id="thank-you-shiny-team" class="slide level2">
