@@ -43,10 +43,86 @@ format:
   font-size: 1em;
 }
 
-/* custom.scss ships a 3-column default and .c4; this deck also needs 2-up. */
+/* custom.scss ships a 3-column default and .c4; this deck also needs 2-up, and
+   5-up for the ten apps. Ten cards over four columns leaves a 4-4-2 last row
+   that reads as something missing; two rows of five reads as the count. */
 .reveal .cards.c2 { grid-template-columns: repeat(2, 1fr); }
+.reveal .cards.c5 { grid-template-columns: repeat(5, 1fr); }
 
-/* .on marks the cards the talk actually opens. The other seven are names the
+/* The five packages as their own stickers. Five across a 1280px slide leaves
+   about 230px each, which holds the hex with room either side, and lets the
+   one-line job wrap to two lines underneath without touching its neighbour. The
+   name sits between them so the eye goes sticker, name, job, in that order.
+
+   Sized by HEIGHT, not width. The five stickers are not all the same aspect
+   ratio, and a shared width leaves the squarer ones visibly shorter than their
+   neighbours, which reads as a mistake rather than as artwork. */
+.reveal .hexrow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.1em;
+  margin-top: .9em;
+}
+.reveal .hexrow > div { text-align: center; }
+.reveal .hexrow img {
+  display: block;
+  height: 185px;
+  width: auto;
+  margin: 0 auto .5em;
+}
+.reveal .hexrow b {
+  display: block;
+  font-size: .62em;
+  font-weight: 600;
+  margin-bottom: .2em;
+}
+/* The ten apps, each as the card drawn for it. Five across leaves ~230px, and
+   the art is 3:2, so a card is about 150px tall and two rows clear the slide
+   with room for the name and its line. The image carries the recognition, the
+   text carries the meaning, so neither has to do both. */
+.reveal .appgrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .5em .75em;
+  margin-top: .7em;
+}
+.reveal .appgrid > div {
+  text-align: center;
+  padding: .3em .3em .4em;
+  border-radius: 4px;
+}
+/* Same job as .cards .on: mark the four the talk stops on, readable from the
+   back, without a border that would fight the artwork's own frame. */
+.reveal .appgrid > div.on { background: rgba(68, 112, 153, .11); }
+.reveal .appgrid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto .32em;
+  border: 1px solid rgba(64, 64, 65, .16);
+  border-radius: 3px;
+}
+.reveal .appgrid b {
+  display: block;
+  font-size: .52em;
+  font-weight: 600;
+  margin-bottom: .1em;
+}
+.reveal .appgrid span {
+  display: block;
+  font-size: .38em;
+  line-height: 1.3;
+  color: rgba(64, 64, 65, .85);
+}
+
+.reveal .hexrow span {
+  display: block;
+  font-size: .44em;
+  line-height: 1.32;
+  color: rgba(64, 64, 65, .85);
+}
+
+/* .on marks the cards the talk actually opens. The other six are names the
    room hears once and never sees again, so the mark has to survive a glance
    from the back of a Zoom grid: a tint plus a heavier left rule, not a colour
    swap that reads as decoration. The rest keep their white background and full
@@ -380,6 +456,12 @@ format:
    line, but nothing else, so they get more room than .vrvid. */
 .reveal .demovid.appvid { height: 404px; }
 
+/* recount-explorer and genome-explorer were recorded at 1600x1000, not the
+   1920x1080 every other clip uses. The base rule pins 16/9, so those two sat
+   in white letterbox bars. Give them their real ratio rather than re-encoding
+   the source, which would cost quality to fix a CSS problem. */
+.reveal .demovid.r1610 { aspect-ratio: 16 / 10; }
+
 /* The affordance. A paused clip on a slide is indistinguishable from a
    screenshot, so it needs to say it is a video before anyone clicks. The badge
    is drawn over the clip and removed the moment it first plays, so it is a hint
@@ -498,7 +580,6 @@ You all know Shiny. So today is about what I point it at.
 Their tools didn't keep up. That gap is the job.
 :::
 
-
 ## {.heroslide background-image="assets/thumbs/xenium.png" background-size="cover"}
 
 ::: {.act}
@@ -516,89 +597,43 @@ Every dot is a single molecule of RNA.
 :::
 :::
 
+## The ten apps I built this summer
 
-## The apps I built this summer
+```{=html}
+<div class="appgrid">
+  <div class="on"><img src="assets/app-thumbnails/tahoe-explorer.png"><b>tahoe-explorer</b><span>Plan a reanalysis before spending compute.</span></div>
+  <div class="on"><img src="assets/app-thumbnails/plotomics-live.png"><b>plotomics-live</b><span>Twenty-six figures, two engines.</span></div>
+  <div class="on"><img src="assets/app-thumbnails/variant-reviewer.png"><b>variant-reviewer</b><span>One variant, without eighteen tabs.</span></div>
+  <div class="on"><img src="assets/app-thumbnails/genescout.png"><b>genescout</b><span>200 candidates to a ranked thirty.</span></div>
+  <div><img src="assets/app-thumbnails/gene-list-builder.png"><b>gene-list-builder</b><span>A disease panel from seven sources.</span></div>
+  <div><img src="assets/app-thumbnails/recount-explorer.png"><b>recount-explorer</b><span>recount3, without writing any code.</span></div>
+  <div><img src="assets/app-thumbnails/de-explorer.png"><b>de-explorer</b><span>Which genes changed, and by how much.</span></div>
+  <div><img src="assets/app-thumbnails/signature-scoring.png"><b>signature-scoring</b><span>Which pathways are active where.</span></div>
+  <div><img src="assets/app-thumbnails/drug-perturbation.png"><b>drug-perturbation</b><span>Drugs that reverse a disease signature.</span></div>
+  <div><img src="assets/app-thumbnails/genome-explorer.png"><b>genome-explorer</b><span>Mutations in genomic context.</span></div>
+</div>
+```
 
-::: {.cards .c4}
-::: {.on}
-plotomics
+## And five packages underneath them
 
-17 GPU components. One core, three languages.
+::: {.kicker}
+Every one of these came out of a problem the apps kept hitting. Solve it once, and the next app gets it for free.
 :::
 
-::: {.on}
-biobouncer
-
-The gate every one of them calls first.
-:::
-
-::: {.on}
-tahoe-explorer
-
-Plan a reanalysis before spending compute.
-:::
-
-::: {.on}
-genescout
-
-200 candidates to a ranked thirty.
-:::
-
-::: {.on}
-variant-reviewer
-
-One variant, without eighteen tabs.
-:::
-
-::: {}
-de-explorer
-
-Which genes changed, and by how much.
-:::
-
-::: {}
-signature-scoring
-
-Which pathways are active where.
-:::
-
-::: {}
-drug-perturbation
-
-Drugs that reverse a disease signature.
-:::
-
-::: {}
-genome-explorer
-
-Mutations in genomic context.
-:::
-
-::: {}
-multi-variant-reviewer
-
-Do one patient's variants converge?
-:::
-
-::: {}
-gene-list-builder
-
-A disease panel from seven sources.
-:::
-
-::: {}
-knowledge-graph-viewer
-
-A biomedical network, evidence attached.
-:::
-
-:::
-
+```{=html}
+<div class="hexrow">
+  <div><img src="assets/logos/biobouncer-logo.svg"><b>biobouncer</b><span>whether an identifier means anything</span></div>
+  <div><img src="assets/logos/biohttp.svg"><b>biohttp</b><span>how we talk to a service</span></div>
+  <div><img src="assets/logos/bioclients.svg"><b>bioclients</b><span>what each biological service returns</span></div>
+  <div><img src="assets/logos/plotomics.svg"><b>plotomics</b><span>one rendering core, three languages</span></div>
+  <div><img src="assets/logos/biocohort.svg"><b>biocohort</b><span>how a study stays organised</span></div>
+</div>
+```
 
 ## Twenty-six bespoke figures
 
 ::: {.kicker}
-The omics visualization gallery. Every one of these is a component you can call today.
+Plotomics Live. Every one of these is a component you can call today, from R, Python or React.
 :::
 
 ```{=html}
@@ -637,7 +672,17 @@ The omics visualization gallery. Every one of these is a component you can call 
 
 <div class="pills"><span>R Shiny</span><span>Python Shiny</span><span class="ok">Shiny React</span><span class="alt push">GPU</span><span class="alt">ggplot2</span></div>
 
+## The same page, two engines
 
+::: {.kicker}
+[Plotomics Live]{.app} One toggle swaps the GPU React component for the ggplot2 image, over the same server-side computation.
+:::
+
+![](assets/screens/plotomics-live.png){.nostretch width=58% fig-align="center"}
+
+::: {.payoff}
+R stays the analytical engine. The browser does the drawing it is good at.
+:::
 
 ## {.heroslide}
 
@@ -646,34 +691,6 @@ The omics visualization gallery. Every one of these is a component you can call 
 <span class="vidwrap"><video class="demovid" data-src="assets/demo/gallery-tour.mp4"
        muted loop playsinline preload="auto"></video></span>
 ```
-
-
-## ![](assets/logos/biobouncer-logo.svg){.titlelogo} biobouncer
-
-::: {.kicker}
-The other thing every one of those apps calls first.
-:::
-
-::: {.bbrow}
-::: {.bignums}
-::: {}
-48
-
-identifier systems
-:::
-
-::: {}
-4
-
-validation modes
-:::
-:::
-
-<div class="pills"><span>pattern · cache · remote · existence</span><span class="ok">GitHub · PyPI · Zenodo DOI</span><span class="alt">submitted to CRAN</span></div>
-:::
-
-![](assets/diagrams/biobouncer-overview.svg){.nostretch width=70% fig-align="center"}
-
 
 ## What Tahoe-100M is
 
@@ -705,7 +722,6 @@ cells, one row each
 
 ![](assets/diagrams/scientist-today.svg){.nostretch width=62% fig-align="center"}
 
-
 ## {.heroslide}
 
 
@@ -714,103 +730,7 @@ cells, one row each
        muted playsinline preload="auto"></video></span>
 ```
 
-
-## ![](assets/logos/genescout-mascot.svg){.titlelogo} GeneScout
-
-::: {.act}
-PROMPTS
-:::
-
-```{=html}
-<div class="vrsplit">
-  <div class="vrleft">
-    <p class="vrcap">Two hundred candidate genes,<br>reduced to <span class="vrnum">30</span>.</p>
-    <div class="pills"><span class="alt">UI built with Claude Design</span></div>
-  </div>
-  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="assets/demo/genescout-15s.mp4" data-poster-t="8"
-         muted loop playsinline preload="auto"></video></span>
-</div>
-```
-
-
-## variant-reviewer
-
-::: {.kicker}
-A different shape of problem: scattered, not big.
-:::
-
-```{=html}
-<div class="vrsplit">
-  <div class="vrleft">
-    <p class="vrcap">That is a variant.<br>One letter, out of <span class="vrnum">3,000,000,000</span>.</p>
-    <div class="dna">
-      <div class="seq"><span class="who">reference</span><span class="strand"
-        ><span class="A">A</span><span class="C">C</span><span class="G hit">G</span><span class="T">T</span><span class="A">A</span><span class="C">C</span></span></div>
-      <div class="seq"><span class="who">this patient</span><span class="strand"
-        ><span class="A">A</span><span class="C">C</span><span class="A hit">A</span><span class="T">T</span><span class="A">A</span><span class="C">C</span></span></div>
-    </div>
-    <p class="vrline">One search box at the top.<br>Eighteen databases, underneath.</p>
-  </div>
-  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="assets/demo/variant-reviewer-15s.mp4" data-poster-t="5"
-         muted loop playsinline preload="auto"></video></span>
-</div>
-```
-
-
-## Next steps
-
-::: {.cards .c2}
-::: {}
-Write it up
-
-Blog posts on the parts that generalise. No dates promised.
-:::
-
-::: {}
-Deploy them
-
-Nothing is deployed. That is the next piece of work, not a footnote.
-:::
-:::
-
-
-::: {.payoff}
-The data got big and scattered. Their tools didn't follow. Shiny was a good place to fix that.
-:::
-
-
-## Thank you, Shiny team
-
-::: {.kicker}
-I came in with biology problems. Almost none of my questions turned out to be
-biology questions. Thank you to Carson Sievert, and to all of you.
-:::
-
-
-## Supplementary {visibility="uncounted"}
-
-
-::: {.kicker}
-The talk ends on the previous slide. What follows is here for questions.
-:::
-
-::: {.walls .g2}
-::: {.w1}
-More on Tahoe
-
-What a scientist walks away from the demo with.
-:::
-
-::: {.w4}
-Three more applications
-
-Differential expression, pathway activity, drug reversal.
-:::
-:::
-
-
-
-## You planned it before you paid for it {visibility="uncounted"}
+## You planned it before you paid for it
 
 ::: {.flow}
 ::: {}
@@ -862,8 +782,86 @@ obs <- dbGetQuery(con, "
 The front door for a dataset that didn't have one.
 :::
 
+## ![](assets/logos/genescout-mascot.svg){.titlelogo} GeneScout
 
-## Which genes changed, and by how much {visibility="uncounted"}
+::: {.act}
+PROMPTS
+:::
+
+```{=html}
+<div class="vrsplit">
+  <div class="vrleft">
+    <p class="vrcap">Two hundred candidate genes,<br>reduced to <span class="vrnum">30</span>.</p>
+    <div class="pills"><span class="alt">UI built with Claude Design</span></div>
+  </div>
+  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="assets/demo/genescout-15s.mp4" data-poster-t="8"
+         muted loop playsinline preload="auto"></video></span>
+</div>
+```
+
+## One disease name, one defensible panel
+
+::: {.kicker}
+[Gene List Builder]{.app} Breast cancer resolves to MONDO:0007254, then seven sources are queried in parallel.
+:::
+
+![](assets/app-thumbnails/gene-list-builder.png){.nostretch width=40% fig-align="center"}
+
+::: {.payoff}
+The weights are visible and adjustable. Every gene traces back to its source database.
+:::
+
+## variant-reviewer
+
+::: {.kicker}
+A different shape of problem: scattered, not big.
+:::
+
+```{=html}
+<div class="vrsplit">
+  <div class="vrleft">
+    <p class="vrcap">That is a variant.<br>One letter, out of <span class="vrnum">3,000,000,000</span>.</p>
+    <div class="dna">
+      <div class="seq"><span class="who">reference</span><span class="strand"
+        ><span class="A">A</span><span class="C">C</span><span class="G hit">G</span><span class="T">T</span><span class="A">A</span><span class="C">C</span></span></div>
+      <div class="seq"><span class="who">this patient</span><span class="strand"
+        ><span class="A">A</span><span class="C">C</span><span class="A hit">A</span><span class="T">T</span><span class="A">A</span><span class="C">C</span></span></div>
+    </div>
+    <p class="vrline">One search box at the top.<br>Eighteen databases, underneath.</p>
+  </div>
+  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="assets/demo/variant-reviewer-15s.mp4" data-poster-t="5"
+         muted loop playsinline preload="auto"></video></span>
+</div>
+```
+
+## Five focused applications
+
+::: {.kicker}
+Recount Explorer, DE Explorer, Signature Scoring, Drug Perturbation and Genome Explorer. One common workflow each, wrapped so somebody else can run it.
+:::
+
+![](assets/screens/focused-apps.png){.nostretch width=80% fig-align="center"}
+
+::: {.payoff}
+An analysis can end in a tool, not in a script the next person has to rerun.
+:::
+
+## One catalogue, 18,998 studies
+
+::: {.kicker}
+[Recount Explorer]{.app} recount3, human and mouse. Browse the catalogue, check quality, run a PCA, export what you need, without writing any code.
+:::
+
+```{=html}
+<span class="vidwrap"><video class="demovid appvid r1610" data-src="assets/demo/recount-explorer-demo.mp4"
+       muted loop playsinline preload="auto"></video></span>
+```
+
+::: {.payoff}
+The data was already public. Opening it should never have needed a script first.
+:::
+
+## Which genes changed, and by how much
 
 ::: {.kicker}
 [DE Explorer]{.app} Real TCGA lung data: adenocarcinoma against squamous-cell, plus normal tissue.
@@ -878,8 +876,7 @@ The front door for a dataset that didn't have one.
 Move a threshold, every panel follows. No re-running anything.
 :::
 
-
-## Which pathways are active, and where {visibility="uncounted"}
+## Which pathways are active, and where
 
 ::: {.kicker}
 [Signature Scoring]{.app} Breast cancer, 50 Hallmark pathways, one subtype against another.
@@ -894,8 +891,7 @@ Move a threshold, every panel follows. No re-running anything.
 A single gene is noisy. A whole pathway is a signal.
 :::
 
-
-## Find a drug that reverses the disease {visibility="uncounted"}
+## Find a drug that reverses the disease
 
 ::: {.kicker}
 [Drug Perturbation]{.app} Connectivity scoring, in the spirit of CMap and LINCS.
@@ -910,27 +906,208 @@ A single gene is noisy. A whole pathway is a signal.
 If the disease turns genes up, find the compound that turns them down.
 :::
 
+## Mutations, put back in genomic context
 
-## Two things sit under all of them {visibility="uncounted"}
+::: {.kicker}
+[Genome Explorer]{.app} Recurrent TCGA-BRCA driver mutations on hg19, drawn with igv.js. Click a variant and the browser zooms to it.
+:::
+
+```{=html}
+<span class="vidwrap"><video class="demovid appvid r1610" data-src="assets/demo/genome-explorer-demo.mp4"
+       muted loop playsinline preload="auto"></video></span>
+```
+
+::: {.payoff}
+A cohort-wide pattern and a single locus are the same view at two zoom levels.
+:::
+
+## ![](assets/logos/biobouncer-logo.svg){.titlelogo} biobouncer
+
+::: {.kicker}
+The other thing every one of those apps calls first.
+:::
+
+::: {.bbrow}
+::: {.bignums}
+::: {}
+48
+
+identifier systems
+:::
+
+::: {}
+4
+
+validation modes
+:::
+:::
+
+<div class="pills"><span>pattern · cache · remote · existence</span><span class="ok">CRAN · PyPI · GitHub · Zenodo DOI</span></div>
+:::
+
+![](assets/diagrams/biobouncer-overview.svg){.nostretch width=70% fig-align="center"}
+
+## ![](assets/logos/biohttp.svg){.titlelogo} biohttp
+
+::: {.kicker}
+Every external service fails in its own way. This is the part nobody should have to write twice.
+:::
+
+::: {.bbrow}
+::: {.bignums}
+::: {}
+7
+
+concerns handled once
+:::
+
+::: {}
+2
+
+kinds of nothing
+:::
+:::
+
+<div class="pills"><span>retry · throttle · cache · batch · timeout</span><span class="ok">CRAN</span></div>
+:::
 
 ::: {.walls .g2}
 ::: {.w1}
-A visualization layer
+The service said no
 
-That Xenium slide was a million points on a GPU. The same components drop into R, Python or React unchanged.
+A clean empty answer. The gene is real, there is simply nothing recorded on it.
 :::
 
 ::: {.w4}
-A validator, biobouncer
+The service fell over
 
-"Is this even a real identifier?", answered before anything spends a network call.
+A timeout, a 500, a rate limit. Same silence on screen, completely different problem.
 :::
 :::
-
-![](assets/diagrams/biobouncer-overview.svg){.nostretch width=46% fig-align="center"}
 
 ::: {.payoff}
-The second one is public. It is the piece you could use tomorrow.
+Telling those two apart is the whole reason an app can lean on eighteen services at once.
+:::
+
+## ![](assets/logos/bioclients.svg){.titlelogo} bioclients
+
+::: {.kicker}
+biohttp knows how to talk to a service. This one knows what each service is saying back.
+:::
+
+::: {.bbrow}
+::: {.bignums}
+::: {}
+29
+
+biological services
+:::
+
+::: {}
+2
+
+halves, kept apart
+:::
+:::
+
+<div class="pills"><span>Ensembl · UniProt · gnomAD · ClinVar · and 25 more</span><span class="ok">CRAN</span></div>
+:::
+
+::: {.payoff}
+Fetching and parsing are separate, so a stored response is enough to test a parser. No live API, no flaky test.
+:::
+
+## ![](assets/logos/plotomics.svg){.titlelogo} plotomics
+
+::: {.kicker}
+The rendering core under Plotomics Live, and under anything else that wants these figures.
+:::
+
+::: {.bbrow}
+::: {.bignums}
+::: {}
+17
+
+components
+:::
+
+::: {}
+1
+
+core, three languages
+:::
+:::
+
+<div class="pills"><span>WebGL · Canvas · binary buffers, not JSON</span><span class="ok">CRAN · PyPI · npm</span></div>
+:::
+
+::: {.payoff}
+Fifteen ship in all three languages. The two genome browsers are JavaScript and Python only.
+:::
+
+## ![](assets/logos/biocohort.svg){.titlelogo} biocohort
+
+::: {.kicker}
+The least glamorous one, and the one my own research leans on hardest. Before an API or a figure matters, the study has to stay organised.
+:::
+
+::: {.flow}
+::: {}
+Subjects and samples
+
+Who, and what came off them.
+:::
+
+::: {}
+Assays
+
+RNA, ATAC and whole genome, described in one manifest.
+:::
+
+::: {}
+Corrections
+
+A swapped label, fixed once, stays fixed.
+:::
+
+::: {}
+Sample sheets
+
+Generated from the manifest, not typed by hand.
+:::
+:::
+
+<div class="pills"><span>one manifest per study · many assays · many organisms</span><span class="ok">CRAN</span></div>
+
+::: {.payoff}
+These are cheap problems early and very expensive ones later.
+:::
+
+## Next steps
+
+::: {.cards .c2}
+::: {}
+Write it up
+
+Blog posts on the parts that generalise. No dates promised.
+:::
+
+::: {}
+Keep them running
+
+All ten are deployed on Connect Cloud now. Keeping them current is the part that does not end.
+:::
 :::
 
 
+::: {.payoff}
+The data got big and scattered. Their tools didn't follow. Shiny was a good place to fix that.
+:::
+
+## Thank you, Shiny team
+
+::: {.kicker}
+I came in with biology problems. Almost none of my questions turned out to be
+biology questions. Thank you to Barret Schloerke and Carson Sievert, and to
+all of you.
+:::
