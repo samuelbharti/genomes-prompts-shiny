@@ -11,9 +11,9 @@ deck/comp-bio-apps.*
 deck/variants/
 assets/memes/
 assets/photos/shiny-team.jpg
-index.qmd
-index.html
-index_files/
+/index.qmd
+/index.html
+/index_files/
 
 # Local notes, drafts and plans
 docs/local/
