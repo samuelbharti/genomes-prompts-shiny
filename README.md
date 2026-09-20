@@ -7,7 +7,7 @@ biology, built during a 2026 internship on the Shiny team at Posit.
 
 Based on the talk given in August 2026, kept current since.
 
-## What the talk covers
+## The work
 
 Ten applications and five packages came out of that summer. Some are tools a
 researcher opens and uses. The rest sit underneath them, solving the problems
@@ -24,7 +24,7 @@ for each one.
 
 ### Ten applications
 
-| Project | What it does |
+| Project | Purpose |
 |---|---|
 | [tahoe-explorer](https://github.com/samuelbharti/tahoe-explorer) | Plan a reanalysis of Tahoe-100M before spending the compute |
 | [plotomics-live](https://github.com/samuelbharti/plotomics-live) | Twenty-six biological figures, each rendered two ways |
@@ -39,7 +39,7 @@ for each one.
 
 ### Five packages
 
-| Package | What it does | Published |
+| Package | Purpose | Published |
 |---|---|---|
 | [biobouncer](https://github.com/samuelbharti/biobouncer) | Whether a biological identifier means anything | CRAN, PyPI, npm |
 | [biohttp](https://github.com/samuelbharti/biohttp) | How an application talks to an external service | CRAN |
