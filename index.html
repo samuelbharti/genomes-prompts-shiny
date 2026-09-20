@@ -201,7 +201,7 @@
 Samuel Bharti 
 </div>
         <p class="quarto-title-affiliation">
-            Computational Biologist · PhD candidate · Intern, Shiny team at Posit
+            Computational Biologist · Doctoral Researcher · Intern, Shiny team at Posit
           </p>
     </div>
 </div>
@@ -270,6 +270,65 @@ Samuel Bharti
    set as two groups side by side: the ten applications down two sub-columns,
    the five packages down one. grid-auto-flow is column on the wide group so
    the eye reads 1-5 then 6-10, which a row-filled grid would scramble. */
+/* The closing card on the thank-you slide: the QR beside the name rather than
+   under it, so the slide keeps one horizontal line of content instead of a
+   stack that drifts toward the bottom edge. The QR is sized by what a phone
+   needs from the back of a room, not by what looks tidy up close. */
+/* The three hero slides are full-bleed photographs and video. Quarto's footer
+   is one fixed element beside .slides rather than a copy inside each section,
+   so it cannot be hidden per slide from the markup. :has() reads which section
+   is currently present and drops the footer on those three, where grey text
+   over a Xenium field is illegible anyway and the picture is the whole point.
+
+   !important is load-bearing: Quarto's script writes style="display: block"
+   onto the element itself, and an inline style beats a stylesheet rule. */
+.reveal:has(section.heroslide.present) .footer { display: none !important; }
+
+/* .seealso, a references line. It has to survive on the slide without
+   competing with the argument above it, so it sits under a hairline at the
+   size of a caption. Quieter than .payoff on purpose: this is for the reader
+   who opens the deck afterwards, not for the room. */
+.reveal .seealso {
+  margin-top: 1.2em;
+  padding-top: .55em;
+  border-top: 1px solid rgba(64, 64, 65, .15);
+  font-size: .42em;
+  line-height: 1.5;
+  color: rgba(64, 64, 65, .7);
+}
+.reveal .seealso a {
+  color: #447099;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(68, 112, 153, .3);
+}
+
+.reveal .endcard {
+  display: flex;
+  align-items: center;
+  gap: 1.1em;
+  margin-top: 1.4em;
+}
+.reveal .endcard img {
+  width: 250px;
+  height: 250px;
+  display: block;
+  border: 1px solid rgba(64, 64, 65, .16);
+  border-radius: 4px;
+  padding: 6px;
+  background: #FFFFFF;
+}
+.reveal .endcard b {
+  display: block;
+  font-size: .62em;
+  font-weight: 600;
+  margin-bottom: .12em;
+}
+.reveal .endcard span {
+  display: block;
+  font-size: .5em;
+  color: #447099;
+}
+
 .reveal .findit {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -832,7 +891,7 @@ document.addEventListener('click', function (e) {
 <section id="and-five-packages-underneath-them" class="slide level2">
 <h2>And five packages underneath them</h2>
 <div class="kicker">
-<p>Every one of these came out of a problem the apps kept hitting. Solve it once, and the next app gets it for free.</p>
+<p>Each came out of a problem the apps kept hitting. Solve it in the package, and nothing above it has to.</p>
 </div>
 <div class="hexrow">
   <div><img src="assets/logos/biobouncer-logo.svg"><b>biobouncer</b><span>whether an identifier means anything</span></div>
@@ -988,7 +1047,7 @@ document.addEventListener('click', function (e) {
 <section id="one-disease-name-one-defensible-panel" class="slide level2">
 <h2>One disease name, one defensible panel</h2>
 <div class="kicker">
-<p><span class="app">Gene List Builder</span> Breast cancer resolves to MONDO:0007254, then seven sources are queried in parallel.</p>
+<p><span class="app">Gene List Builder</span> Breast cancer resolves to MONDO:0007254, and seven sources answer in parallel.</p>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1137,7 +1196,7 @@ document.addEventListener('click', function (e) {
 </div>
 </div>
 <div class="payoff">
-<p>Telling those two apart is the whole reason an app can lean on eighteen services at once.</p>
+<p>Knowing which one you got is the whole reason an app can lean on eighteen services at once.</p>
 </div>
 </section>
 <section id="bioclients" class="slide level2">
@@ -1153,7 +1212,7 @@ document.addEventListener('click', function (e) {
 </div>
 <div>
 <p>2</p>
-<p>halves, kept apart</p>
+<p>layers, fetch and parse</p>
 </div>
 </div>
 <div class="pills">
@@ -1237,7 +1296,7 @@ document.addEventListener('click', function (e) {
 <section id="where-to-find-all-of-it" class="slide level2">
 <h2>Where to find all of it</h2>
 <div class="kicker">
-<p>Every one of these is open source, and every application is already running somewhere you can click.</p>
+<p>All fifteen are open source. The ten applications are also running, not only readable.</p>
 </div>
 <div class="findit">
   <div>
@@ -1269,18 +1328,31 @@ document.addEventListener('click', function (e) {
 <div class="payoff">
 <p>All ten run in the <a href="https://posit-shiny-showcase-bioinformatics.share.connect.posit.cloud/" target="_blank">Shiny Showcase gallery</a>, collected with their source in <a href="https://github.com/posit-dev/shiny-showcase-bioinformatics" target="_blank">posit-dev/shiny-showcase-bioinformatics</a>.</p>
 </div>
+<div class="seealso">
+  Plotomics Live is built with shinyreact. Barret Schloerke's posit::conf 2026 talk
+  <a href="https://schloerke.com/presentation-2026-09-15-posit-conf-shinyreact/" target="_blank" rel="noopener">Beyond Bootstrap: Building Custom Shiny UI with React</a>
+  is the place to start.<br>
+  Bonus: <a href="https://github.com/samuelbharti/shinyreact-showcase" target="_blank" rel="noopener">shinyreact-showcase</a>, a gallery of shinyreact examples I built.
+</div>
 </section>
 <section id="thank-you-shiny-team" class="slide level2">
 <h2>Thank you, Shiny team</h2>
 <div class="kicker">
 <p>I came in with biology problems. Almost none of my questions turned out to be biology questions. Thank you to Barret Schloerke and Carson Sievert, and to all of you.</p>
 </div>
+<div class="endcard">
+  <img src="assets/qr-website.png" alt="QR code linking to www.samuelbharti.com">
+  <div>
+    <b>www.samuelbharti.com</b>
+    <span>github.com/samuelbharti</span>
+  </div>
+</div>
 
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-
+<p>Samuel Bharti · www.samuelbharti.com · github.com/samuelbharti</p>
 </div>
 </div></div>
 
