@@ -986,7 +986,7 @@ A timeout, a 500, a rate limit. Same silence on screen, completely different pro
 :::
 
 ::: {.payoff}
-Telling those two apart is the whole reason an app can lean on eight services at once.
+Telling those two apart is the whole reason an app can lean on eighteen services at once.
 :::
 
 ## ![](assets/logos/bioclients.svg){.titlelogo} bioclients
