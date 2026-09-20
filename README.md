@@ -80,7 +80,7 @@ Pass `--links` to resolve every link over the network as well.
 stages and uploads instead of rendering. Re-render and commit both when the
 source changes.
 
-Pushing to `main` then deploys to GitHub Pages, when the deck or its assets
+Pushing to `main` then deploys to GitHub Pages when the deck or its assets
 change. `.github/workflows/deploy-site.yml` runs `stage-site.sh` and uploads
 the result.
 
