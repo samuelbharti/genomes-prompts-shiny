@@ -14,7 +14,8 @@ changed anything.
 
 The full legal text is at <https://creativecommons.org/licenses/by/4.0/legalcode>.
 
-The software in this repository is MIT licensed instead. See [LICENSE](LICENSE).
+The software in this repository is MIT licensed instead: everything under
+`scripts/`, `site/` and `.github/`, plus `deck/custom.scss`. See [LICENSE](LICENSE).
 
 ## Where the images came from
 
