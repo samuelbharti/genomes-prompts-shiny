@@ -1,0 +1,936 @@
+---
+title: "Genomes, Prompts, and Shiny"
+subtitle: "Rethinking How We Explore Biological Data"
+author: "Samuel Bharti"
+institute: "Computational Biologist · PhD candidate · Intern, Shiny team at Posit"
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    width: 1280
+    height: 720
+    slide-number: c/t
+    embed-resources: false
+    code-line-numbers: false
+    code-copy: false
+    highlight-style: github
+    transition: none
+    progress: true
+    title-slide-attributes:
+      data-background-color: "#FFFFFF"
+---
+
+## Biologists have a data problem. I build the tools.
+
+
+```{=html}
+<style>
+/* Scoped to this deck. custom.scss is NOT modified, the shipping deck depends
+   on it unchanged.
+
+   v1 was code-first: the last line of a .walls card was always an identifier
+   ("→ plotomics") and the label of a .flow box was always a function name
+   (`set_selection`), so both are set in monospace blue. v2 is prose-first, those same slots now hold sentences, and monospace makes a sentence read as
+   code. So: keep the colour and weight that mark them as labels, drop the
+   typewriter face. */
+.reveal .walls > div > p:last-child {
+  font-family: inherit;
+  font-size: .88em;
+  color: #404041;
+  opacity: .82;
+}
+.reveal .flow > div > p:first-child {
+  font-family: inherit;
+  font-size: 1em;
+}
+
+/* custom.scss ships a 3-column default and .c4; this deck also needs 2-up. */
+.reveal .cards.c2 { grid-template-columns: repeat(2, 1fr); }
+
+/* .on marks the cards the talk actually opens. The other seven are names the
+   room hears once and never sees again, so the mark has to survive a glance
+   from the back of a Zoom grid: a tint plus a heavier left rule, not a colour
+   swap that reads as decoration. The rest keep their white background and full
+   contrast rather than being dimmed, because showing the range is the slide's
+   other job and a greyed-out card looks disabled, not deprioritised. */
+.reveal .cards > div.on {
+  background: rgba(68, 112, 153, .09);
+  border-left: 6px solid #447099;
+}
+.reveal .cards > div:not(.on) { border-left-color: rgba(64, 64, 65, .22); }
+
+/* .push starts a right-hand group in a pill row. .pills is already a flex
+   container, so margin-left:auto eats the free space and everything from here
+   on sits against the right edge. This only works because the deck writes pills
+   as raw HTML: through a fenced div Quarto wraps the spans in a <p>, that <p>
+   becomes the flex item, and the push would stop at its shrink-wrapped width
+   rather than the slide's. */
+.reveal .pills span.push { margin-left: auto; }
+
+/* custom.scss sets the bignum at 1.7em, sized for a slide where the numbers ARE
+   the content. On the biobouncer slide they introduce a diagram that is the
+   real argument, so they give their height back to it. */
+.reveal .bignums { margin: .1em 0 .35em; }
+.reveal .bignums > div > p:first-child { font-size: 1.3em; }
+.reveal .bignums > div > p:last-child { font-size: .46em; }
+
+/* .bbrow, the biobouncer stats band: two numbers and three pills on ONE row.
+   Dropping the third bignum left the numbers occupying about 250px of a 1280px
+   slide with the pills stacked underneath on their own line. Side by side they
+   cost one band instead of two, and the ~75px that buys goes to the diagram,
+   which is the actual argument of the slide. */
+.reveal .bbrow {
+  display: flex;
+  align-items: center;
+  gap: 2.2em;
+  margin: .1em 0 .3em;
+}
+.reveal .bbrow .bignums { margin: 0; flex: none; }
+.reveal .bbrow .pills { margin: 0; }
+
+/* .titlelogo, an app's own mark set INSIDE its h2 rather than parked in a
+   corner. When the slide is titled with the app's name, the mark belongs next
+   to the name; the old .applogo sat bottom-right and read as a watermark.
+   Sized in em so it tracks the h2 and needs no retuning if the title changes.
+   vertical-align optically centres a square mark against a cap-height word,
+   which baseline alignment does not; it is tuned to the height below, so the
+   two move together.
+
+   Set taller than the cap height on purpose. At .92em the hex read as a bullet
+   point next to the word rather than as the project's mark. */
+.reveal h2 .titlelogo {
+  display: inline-block;
+  height: 1.34em;
+  width: auto;
+  margin: 0 .3em 0 0;
+  vertical-align: -.32em;
+  border: none;
+  box-shadow: none;
+}
+/* Quarto wraps a lone image in a figure; inside an h2 that would break the
+   line. Force it back to inline flow. */
+.reveal h2 .quarto-figure,
+.reveal h2 figure,
+.reveal h2 p { display: inline; margin: 0; }
+
+/* ---------------------------------------------------------------------------
+   .app, the name of the application on screen.
+
+   Five consecutive slides each show a different app, and the name was buried
+   as the first two words of a grey kicker sentence, in the same weight as the
+   rest of it. From the back of a Zoom call there was nothing to tell you which
+   app you were looking at. A chip pulls the name out of the sentence without
+   needing a second line for it.
+   --------------------------------------------------------------------------- */
+.reveal .kicker .app {
+  display: inline-block;
+  margin-right: .45em;
+  padding: .06em .5em .1em;
+  border-radius: 3px;
+  background: #447099;
+  color: #FFFFFF;
+  font-weight: 600;
+  letter-spacing: .01em;
+  /* The kicker is set in a lighter grey at reduced size; the chip has to sit
+     ON that baseline, so it inherits the size rather than setting its own. */
+  font-size: inherit;
+}
+
+/* ---------------------------------------------------------------------------
+   Deck-wide vertical rhythm, tightened. A Playwright sweep of all 17 slides at
+   1280x720 found the .payoff line hanging off the bottom of the canvas on SIX
+   of them, by 3px on the mildest and 97px on the worst, which means it had been
+   presenting sliced through its glyphs or missing entirely. Nothing about it is
+   a regression; it is how the deck was built.
+
+   The cause is not auto-stretch. Every figure here already carries .nostretch
+   and an explicit width=, so the heights are a consequence of those width
+   percentages, and the percentages were picked without checking what height
+   they implied once an h2, a kicker and a payoff were also on the slide.
+
+   Rather than shrink six figures, take it out of the rhythm: the affected
+   slides carry 76-90px of inter-block whitespace and are over by 3-33px. These
+   two lines buy about 41px on EVERY slide, which cannot break a slide that
+   already fit, since the only effect is to give it more room. Slide 14 is the
+   one that this does not rescue on its own; see the width= on its screenshot.
+   --------------------------------------------------------------------------- */
+.reveal .kicker { margin-bottom: .4em; }
+.reveal .payoff { margin-top: .25em; padding-top: .28em; }
+/* The 40px under every screenshot is the figure's OWN bottom margin, not the
+   payoff's top margin, which is why tightening .payoff alone moved these slides
+   by 18px instead of the projected 41. Measure before assuming which box owns
+   a gap. */
+.reveal .quarto-figure { margin-bottom: 0; }
+
+/* This slide's vertical budget, measured in Chrome at 1280x720. It used to be
+   over: h2 (91) + kicker (41) + five thumbnail rows (434) + pills (41) +
+   payoff (70) plus the gaps came to 769px on a 720px canvas, so the payoff was
+   rendering 49px below the bottom edge, sliced through its glyphs.
+
+   The payoff is now gone, folded into the two right-hand pills, which returns
+   about 90px. That goes straight back into the tiles, since the thumbnails are
+   the entire argument of the slide. */
+.reveal .viz26 { margin: .1em 0 0; }
+.reveal .viz26 ~ .pills { margin: .25em 0 0; }
+.reveal .viz26 .vrow {
+  display: grid;
+  grid-template-columns: 200px 1fr;   /* label rail, then the tiles */
+  align-items: center;
+  gap: .6em;
+  margin-bottom: .14em;
+}
+.reveal .viz26 .vlabel {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .5em;
+  font-size: .46em;
+  font-weight: 600;
+  color: #404041;
+  padding-right: .4em;
+  border-right: 2px solid rgba(68, 112, 153, .3);
+}
+.reveal .viz26 .vlabel b { font-size: 1.5em; color: #447099; }
+/* Always six columns, even on the four-tile rows. A row that stretched four
+   tiles across the full width would make those categories look bigger than the
+   six-tile ones, which is the opposite of what the counts are saying. */
+.reveal .viz26 .vtiles {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+}
+.reveal .viz26 .vtiles img {
+  width: 100%;
+  display: block;
+  margin: 0;
+  border: 1px solid rgba(64, 64, 65, .22);
+  border-radius: 2px;
+  box-shadow: none;
+  /* Taller than the source. The thumbs are natively 2.17:1; the payoff line
+     leaving this slide freed about 90px, and spending it on height is what
+     makes a 167px-wide tile actually readable from the back of a call. The
+     cost is a slight top-and-bottom crop, which object-fit: cover below takes
+     off both edges evenly. Set from the measured row height, not guessed. */
+  aspect-ratio: 1.78 / 1;
+  object-fit: cover;
+}
+
+/* .recipe, the two one-line captions bracketing the exported snippet on
+   "You planned it before you paid for it". Small and grey so the code stays
+   the thing being looked at. */
+.reveal .recipe {
+  font-size: .5em;
+  color: #404041;
+  opacity: .72;
+  margin: .5em 0 .25em;
+}
+.reveal .recipe.after { margin: .25em 0 0; }
+/* The default code block on this theme is sized for a slide with nothing else
+   on it. Here it shares with a four-box flow row and two captions. */
+.reveal .recipe + pre,
+.reveal .recipe + div.sourceCode pre {
+  font-size: .52em;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   .dna, what a variant actually is, for people who have never seen one.
+   Two sequences, identical except for one letter. Drawn in CSS rather than
+   shipped as an image: it stays sharp at any projector or Zoom resolution, it
+   costs no bytes, and there is no licence attached to it.
+   Base colours are the standard nucleotide scheme, so the one bioinformatician
+   in the room reads it as correct rather than as decoration.
+   --------------------------------------------------------------------------- */
+.reveal .dna { margin: .35em 0 .2em; }
+.reveal .dna .seq {
+  display: flex;
+  align-items: center;
+  gap: .7em;
+  margin-bottom: .3em;
+}
+.reveal .dna .who {
+  flex: none;
+  width: 6.4em;          /* wide enough that "this patient" stays on one line */
+  text-align: right;
+  font-size: .5em;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  opacity: .65;
+}
+.reveal .dna .strand {
+  font-family: "Source Code Pro", Consolas, monospace;
+  font-size: .82em;
+  letter-spacing: .28em;
+  font-weight: 600;
+}
+.reveal .dna .strand .A { color: #4C8C2B; }
+.reveal .dna .strand .C { color: #1F6F8B; }
+.reveal .dna .strand .G { color: #E8A33D; }
+.reveal .dna .strand .T { color: #C1342E; }
+.reveal .dna .hit {
+  background: rgba(238, 99, 49, .16);
+  outline: 2px solid #EE6331;
+  border-radius: 2px;
+  padding: 0 .1em;
+}
+/* ---------------------------------------------------------------------------
+   .vrsplit, the app two-up: explainer left, running app right. Used by both
+   variant-reviewer and GeneScout.
+
+   The video gets the larger track because it is the evidence; the left column
+   is a fixed explainer that only has to stay readable. minmax(0, …) on BOTH
+   tracks is copied from .withmeme in custom.scss and is load-bearing: a plain
+   fr lets a wide child blow its track out and push the other column off the
+   slide.
+
+   The caption used to be .dna .cap, a block UNDER the strands carrying a 9.6em
+   left margin to fake alignment with them. It now sits above them in its own
+   column, so that hack is gone with it.
+   --------------------------------------------------------------------------- */
+.reveal .vrsplit {
+  display: grid;
+  grid-template-columns: minmax(0, 350px) minmax(0, 1fr);
+  gap: 1.1em;
+  align-items: center;
+  margin-top: .35em;
+}
+.reveal .vrsplit .vrcap {
+  font-size: .62em;
+  line-height: 1.35;
+  color: #404041;
+  margin: 0 0 .55em;
+}
+/* The genome size in digits, not words. "Three billion" reads as a turn of
+   phrase; the row of zeros reads as a measurement, which is the point of the
+   sentence. Monospace so the zeros are even and survive Zoom's compression. */
+.reveal .vrsplit .vrnum {
+  font-family: "Source Code Pro", Consolas, monospace;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.reveal .vrsplit .vrline {
+  font-size: .58em;
+  line-height: 1.35;
+  color: #404041;
+  opacity: .8;
+  margin: .7em 0 0;
+}
+/* The clip drives its own height here rather than taking .vrvid's fixed 296px,
+   because in this layout it is the column that should grow. */
+.reveal .vrsplit .vrwrap { display: block; }
+.reveal .vrsplit .demovid.vrvid { height: auto; width: 100%; }
+.reveal .vrsplit .pills { margin: .1em 0 0; }
+
+/* ---------------------------------------------------------------------------
+   .demovid, the seven screen recordings.
+
+   NOT autoplay. reveal's data-autoplay starts a clip the instant the slide
+   arrives, which takes the timing away from you: land early and the demo is
+   already running while you are still talking, land late and you have missed
+   the opening. These start on a click and toggle on every click after, so the
+   clip runs when you say it does.
+
+   Arrow keys are left alone deliberately. Space and the arrows still advance
+   the deck, so there is no key that means "play here" and no way to trigger a
+   clip by accident while navigating.
+
+   data-src is reveal's lazy-load attribute. Note it does NOT keep the file out
+   of the HTML: embed-resources base64s it anyway, so the deck carries all seven
+   clips inline and remains one portable file at 71 MB. That was measured, not
+   assumed: cold load in Chrome is 0.36 s. If a future clip does make load
+   sluggish, the escape hatch is an attribute Quarto does not recognise,
+   data-vsrc say, plus three lines of JS to copy it onto .src on slide change.
+   --------------------------------------------------------------------------- */
+/* Sized by HEIGHT with the aspect ratio pinned, not by width. Every clip is
+   1920x1080 and the canvas is 1280x720, so driving off height fills the slide
+   and still scales DOWN rather than up.
+
+   aspect-ratio is what makes the border correct. Setting width:100% instead
+   gave a 1218x622 box holding a 1105x622 picture, so the frame sat 56px off the
+   content on each side, letterboxed against the element's own white.
+
+   The bare .demovid is only ever the two untitled hero slides, DEMO and
+   GALLERY, because .appvid and .vrvid below both override the height. Those two
+   go FULL BLEED: a .heroslide section is a zero-padding 1280x720 box, and 16:9
+   at 720 tall is exactly 1280 wide, so the clip is the slide. No border, since
+   a frame on a full-bleed video is just a line the projector clips.
+
+   The two things in the corners survive it. .act keeps its white pad and its
+   z-index:2 further down, so GALLERY and DEMO stay readable on top of the
+   video; the slide number and progress bar are reveal's own chrome and paint
+   above it too. */
+.reveal .demovid {
+  display: block;
+  margin: 0 auto;
+  height: 720px;
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+  background: #FFFFFF;
+  cursor: pointer;
+}
+/* The four app clips and the variant-reviewer clip share a slide with other
+   content, so they keep the frame that separates them from the white. */
+.reveal .demovid.appvid,
+.reveal .demovid.vrvid { border: 1px solid rgba(64, 64, 65, .22); }
+/* The DEMO and GALLERY slides have no title, so their clip takes the full
+   frame. The variant-reviewer slide shares with a title, a kicker, the sequence
+   graphic and a payoff line, so its clip gets what is left. */
+.reveal .demovid.vrvid { height: 296px; }
+/* The four app clips share their slide with a title, a kicker and a payoff
+   line, but nothing else, so they get more room than .vrvid. */
+.reveal .demovid.appvid { height: 404px; }
+
+/* The affordance. A paused clip on a slide is indistinguishable from a
+   screenshot, so it needs to say it is a video before anyone clicks. The badge
+   is drawn over the clip and removed the moment it first plays, so it is a hint
+   rather than a permanent control. */
+.reveal .vidwrap { position: relative; display: block; }
+.reveal .vidwrap::after {
+  content: "\25B6";               /* solid right-pointing triangle */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1.9em;
+  height: 1.9em;
+  font-size: .8em;
+  line-height: 1.95em;
+  text-align: center;
+  text-indent: .12em;             /* optically centres a triangle in a circle */
+  color: #FFFFFF;
+  background: rgba(64, 64, 65, .72);
+  border-radius: 50%;
+  pointer-events: none;           /* the click must reach the video underneath */
+  transition: opacity .18s linear;
+}
+.reveal .vidwrap.played::after { opacity: 0; }
+
+/* The act marker has to outrank whatever fills the slide behind it. Only
+   GENOMES and PROMPTS remain, and GENOMES sits over the full-bleed Xenium hero,
+   where without this it loses to a positioned sibling that comes later in the
+   DOM. Its white pad keeps it legible; z-index keeps it visible at all. */
+.reveal .act { z-index: 2; }
+
+/* The closing thank-you photo. Deliberately NOT sized here. Quarto's
+   auto-stretch (on by default, and left on) tags a lone image r-stretch and
+   writes an inline height computed from whatever the slide has left, which is
+   537px on this one. An inline style beats a stylesheet, so an explicit height
+   rule here would be dead code that merely looked authoritative. Auto-stretch
+   is doing the right thing, so let it, and set only what it does not.
+
+   Full-bleed was the obvious alternative and is wrong here: background-size
+   cover crops a 4:3 frame to its middle 75%, which lands the top of a .heroline
+   scrim directly across the faces, and a thank-you slide that covers the people
+   it is thanking defeats itself. */
+.reveal .teamphoto {
+  display: block;
+  margin: .15em auto 0;
+  border: 1px solid rgba(64, 64, 65, .22);
+}
+</style>
+```
+
+```{=html}
+<script>
+// Click a clip to start it, click again to pause. Deliberately NOT autoplay:
+// see the .demovid comment above. The listener is delegated from the document
+// rather than bound per element, because reveal clones slides for the overview
+// and speaker views and handlers bound at load time do not survive the clone.
+// A paused <video> paints its first frame, and the variant-reviewer recording
+// opens on the app still blank, so the slide showed an empty white rectangle.
+// data-poster-t names a frame worth showing instead. The first click rewinds
+// to 0 so nothing is actually skipped; it is a poster, not a start point.
+document.addEventListener('loadeddata', function (e) {
+  var v = e.target;
+  if (!v.classList || !v.classList.contains('demovid')) return;
+  var t = parseFloat(v.dataset.posterT);
+  if (t > 0 && !v.dataset.everPlayed) v.currentTime = t;
+}, true);   // capture: loadeddata does not bubble
+
+document.addEventListener('click', function (e) {
+  var v = e.target.closest && e.target.closest('video.demovid');
+  if (!v) return;
+  e.preventDefault();
+  var wrap = v.parentElement;
+  if (v.paused) {
+    if (v.dataset.posterT && !v.dataset.everPlayed) v.currentTime = 0;
+    v.dataset.everPlayed = '1';
+    v.play();
+    if (wrap) wrap.classList.add('played');
+  } else {
+    v.pause();
+    if (wrap) wrap.classList.remove('played');   // badge returns, so a paused
+  }                                              // clip never reads as a still
+});
+
+// Leaving a slide pauses its clip, otherwise a 90-second demo keeps running
+// unheard behind the next slide. It does NOT rewind: the clips are silent and
+// you narrate live, so if you bump the arrow key and come back you want to
+// carry on from where you were, not restart.
+//
+// Polled rather than guarded with `if (window.Reveal)`. This script runs inside
+// slide content, which the browser executes before Quarto has initialised
+// reveal, so the guard was simply false every time and the handler was never
+// attached. Caught by testing the behaviour rather than by reading the code.
+(function attachPauseOnLeave() {
+  if (!window.Reveal || !window.Reveal.on) {
+    setTimeout(attachPauseOnLeave, 120);
+    return;
+  }
+  Reveal.on('slidechanged', function (ev) {
+    if (!ev.previousSlide) return;
+    ev.previousSlide.querySelectorAll('video.demovid').forEach(function (v) {
+      v.pause();
+      if (v.parentElement) v.parentElement.classList.remove('played');
+    });
+  });
+})();
+</script>
+```
+
+::: {.kicker}
+You all know Shiny. So today is about what I point it at.
+:::
+
+![](../assets/diagrams/data-problem.svg){.nostretch width=92% fig-align="center"}
+
+::: {.payoff}
+Their tools didn't keep up. That gap is the job.
+:::
+
+
+## {.heroslide background-image="../assets/thumbs/xenium.png" background-size="cover"}
+
+::: {.act}
+GENOMES
+:::
+
+::: {.heroline}
+::: {.big}
+This is one tissue sample.
+:::
+::: {.sub}
+Every dot is a single molecule of RNA.
+
+42 million of them, and the position is real.
+:::
+:::
+
+
+## The apps I built this summer
+
+::: {.cards .c4}
+::: {.on}
+plotomics
+
+17 GPU components. One core, three languages.
+:::
+
+::: {.on}
+biobouncer
+
+The gate every one of them calls first.
+:::
+
+::: {.on}
+tahoe-explorer
+
+Plan a reanalysis before spending compute.
+:::
+
+::: {.on}
+genescout
+
+200 candidates to a ranked thirty.
+:::
+
+::: {.on}
+variant-reviewer
+
+One variant, without eighteen tabs.
+:::
+
+::: {}
+de-explorer
+
+Which genes changed, and by how much.
+:::
+
+::: {}
+signature-scoring
+
+Which pathways are active where.
+:::
+
+::: {}
+drug-perturbation
+
+Drugs that reverse a disease signature.
+:::
+
+::: {}
+genome-explorer
+
+Mutations in genomic context.
+:::
+
+::: {}
+multi-variant-reviewer
+
+Do one patient's variants converge?
+:::
+
+::: {}
+gene-list-builder
+
+A disease panel from seven sources.
+:::
+
+::: {}
+knowledge-graph-viewer
+
+A biomedical network, evidence attached.
+:::
+
+:::
+
+
+## Twenty-six bespoke figures
+
+::: {.kicker}
+The omics visualization gallery. Every one of these is a component you can call today.
+:::
+
+```{=html}
+<div class="viz26">
+  <div class="vrow">
+    <div class="vlabel">Single-cell &amp; spatial<b>6</b></div>
+    <div class="vtiles">
+      <img src="../assets/thumbs/umap.png"><img src="../assets/thumbs/tahoe.png"><img src="../assets/thumbs/visium.png"><img src="../assets/thumbs/dotplot.png"><img src="../assets/thumbs/violin.png"><img src="../assets/thumbs/xenium.png">
+    </div>
+  </div>
+  <div class="vrow">
+    <div class="vlabel">Gene expression<b>4</b></div>
+    <div class="vtiles">
+      <img src="../assets/thumbs/clustermap.png"><img src="../assets/thumbs/pca.png"><img src="../assets/thumbs/volcano.png"><img src="../assets/thumbs/heatmap.png">
+    </div>
+  </div>
+  <div class="vrow">
+    <div class="vlabel">Cancer genomics<b>6</b></div>
+    <div class="vtiles">
+      <img src="../assets/thumbs/survival.png"><img src="../assets/thumbs/oncoplot.png"><img src="../assets/thumbs/upset.png"><img src="../assets/thumbs/signatures.png"><img src="../assets/thumbs/lollipop.png"><img src="../assets/thumbs/treemap.png">
+    </div>
+  </div>
+  <div class="vrow">
+    <div class="vlabel">Genome &amp; epigenome<b>6</b></div>
+    <div class="vtiles">
+      <img src="../assets/thumbs/hic.png"><img src="../assets/thumbs/manhattan.png"><img src="../assets/thumbs/igv.png"><img src="../assets/thumbs/gosling.png"><img src="../assets/thumbs/atac.png"><img src="../assets/thumbs/eqtl.png">
+    </div>
+  </div>
+  <div class="vrow">
+    <div class="vlabel">Structure &amp; networks<b>4</b></div>
+    <div class="vtiles">
+      <img src="../assets/thumbs/ndarray.png"><img src="../assets/thumbs/network.png"><img src="../assets/thumbs/protein.png"><img src="../assets/thumbs/pae.png"></div>
+  </div>
+</div>
+```
+
+<div class="pills"><span>R Shiny</span><span>Python Shiny</span><span class="ok">Shiny React</span><span class="alt push">GPU</span><span class="alt">ggplot2</span></div>
+
+
+
+## {.heroslide}
+
+
+```{=html}
+<span class="vidwrap"><video class="demovid" data-src="../assets/demo/gallery-tour.mp4"
+       muted loop playsinline preload="auto"></video></span>
+```
+
+
+## ![](../assets/logos/biobouncer-logo.svg){.titlelogo} biobouncer
+
+::: {.kicker}
+The other thing every one of those apps calls first.
+:::
+
+::: {.bbrow}
+::: {.bignums}
+::: {}
+48
+
+identifier systems
+:::
+
+::: {}
+4
+
+validation modes
+:::
+:::
+
+<div class="pills"><span>pattern · cache · remote · existence</span><span class="ok">GitHub · PyPI · Zenodo DOI</span><span class="alt">submitted to CRAN</span></div>
+:::
+
+![](../assets/diagrams/biobouncer-overview.svg){.nostretch width=70% fig-align="center"}
+
+
+## What Tahoe-100M is
+
+::: {.kicker}
+One public dataset. Free to anyone. And effectively nobody can open it.
+:::
+
+![](../assets/diagrams/tahoe-experiment.svg){.nostretch width=74% fig-align="center"}
+
+::: {.bignums}
+::: {}
+379
+
+drugs
+:::
+
+::: {}
+50
+
+human cell lines
+:::
+
+::: {}
+100.6M
+
+cells, one row each
+:::
+:::
+
+![](../assets/diagrams/scientist-today.svg){.nostretch width=62% fig-align="center"}
+
+
+## {.heroslide}
+
+
+```{=html}
+<span class="vidwrap"><video class="demovid" data-src="../assets/demo/tahoe-explorer-90s.mp4"
+       muted playsinline preload="auto"></video></span>
+```
+
+
+## ![](../assets/logos/genescout-mascot.svg){.titlelogo} GeneScout
+
+::: {.act}
+PROMPTS
+:::
+
+```{=html}
+<div class="vrsplit">
+  <div class="vrleft">
+    <p class="vrcap">Two hundred candidate genes,<br>reduced to <span class="vrnum">30</span>.</p>
+    <div class="pills"><span class="alt">UI built with Claude Design</span></div>
+  </div>
+  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="../assets/demo/genescout-15s.mp4" data-poster-t="8"
+         muted loop playsinline preload="auto"></video></span>
+</div>
+```
+
+
+## variant-reviewer
+
+::: {.kicker}
+A different shape of problem: scattered, not big.
+:::
+
+```{=html}
+<div class="vrsplit">
+  <div class="vrleft">
+    <p class="vrcap">That is a variant.<br>One letter, out of <span class="vrnum">3,000,000,000</span>.</p>
+    <div class="dna">
+      <div class="seq"><span class="who">reference</span><span class="strand"
+        ><span class="A">A</span><span class="C">C</span><span class="G hit">G</span><span class="T">T</span><span class="A">A</span><span class="C">C</span></span></div>
+      <div class="seq"><span class="who">this patient</span><span class="strand"
+        ><span class="A">A</span><span class="C">C</span><span class="A hit">A</span><span class="T">T</span><span class="A">A</span><span class="C">C</span></span></div>
+    </div>
+    <p class="vrline">One search box at the top.<br>Eighteen databases, underneath.</p>
+  </div>
+  <span class="vidwrap vrwrap"><video class="demovid vrvid" data-src="../assets/demo/variant-reviewer-15s.mp4" data-poster-t="5"
+         muted loop playsinline preload="auto"></video></span>
+</div>
+```
+
+
+## Next steps
+
+::: {.cards .c2}
+::: {}
+Write it up
+
+Blog posts on the parts that generalise. No dates promised.
+:::
+
+::: {}
+Deploy them
+
+Nothing is deployed. That is the next piece of work, not a footnote.
+:::
+:::
+
+
+::: {.payoff}
+The data got big and scattered. Their tools didn't follow. Shiny was a good place to fix that.
+:::
+
+
+## Thank you, Shiny team
+
+::: {.kicker}
+I came in with biology problems. Almost none of my questions turned out to be
+biology questions. Thank you to Carson Sievert, and to all of you.
+:::
+
+
+## Supplementary {visibility="uncounted"}
+
+
+::: {.kicker}
+The talk ends on the previous slide. What follows is here for questions.
+:::
+
+::: {.walls .g2}
+::: {.w1}
+More on Tahoe
+
+What a scientist walks away from the demo with.
+:::
+
+::: {.w4}
+Three more applications
+
+Differential expression, pathway activity, drug reversal.
+:::
+:::
+
+
+
+## You planned it before you paid for it {visibility="uncounted"}
+
+::: {.flow}
+::: {}
+Picked a drug
+
+Saw the cell lines that exist.
+:::
+
+::: {}
+Saw the doses
+
+And which ones are too thin to trust.
+:::
+
+::: {}
+Left with a recipe
+
+R on one tab, Python on the other.
+:::
+
+::: {}
+Downloaded nothing
+
+Every number computed where the file lives.
+:::
+:::
+
+
+::: {.recipe}
+The app wrote this. Not an example, the export from the run you just watched.
+:::
+
+```r
+library(duckdb); library(DBI)
+con <- dbConnect(duckdb())
+dbExecute(con, "INSTALL httpfs; LOAD httpfs;")
+
+obs <- dbGetQuery(con, "
+  SELECT * FROM read_parquet('hf://datasets/tahoebio/Tahoe-100M/metadata/obs_metadata.parquet')
+  WHERE cell_name IN ('HS-578T', 'BT-474')
+")
+```
+
+::: {.recipe .after}
+3,094,027 cells across 1,344 samples. The other tab is the same thing in Python.
+:::
+
+::: {.payoff}
+The front door for a dataset that didn't have one.
+:::
+
+
+## Which genes changed, and by how much {visibility="uncounted"}
+
+::: {.kicker}
+[DE Explorer]{.app} Real TCGA lung data: adenocarcinoma against squamous-cell, plus normal tissue.
+:::
+
+```{=html}
+<span class="vidwrap"><video class="demovid appvid" data-src="../assets/demo/de-explorer-10s.mp4"
+       muted loop playsinline preload="auto"></video></span>
+```
+
+::: {.payoff}
+Move a threshold, every panel follows. No re-running anything.
+:::
+
+
+## Which pathways are active, and where {visibility="uncounted"}
+
+::: {.kicker}
+[Signature Scoring]{.app} Breast cancer, 50 Hallmark pathways, one subtype against another.
+:::
+
+```{=html}
+<span class="vidwrap"><video class="demovid appvid" data-src="../assets/demo/signature-scoring-10s.mp4"
+       muted loop playsinline preload="auto"></video></span>
+```
+
+::: {.payoff}
+A single gene is noisy. A whole pathway is a signal.
+:::
+
+
+## Find a drug that reverses the disease {visibility="uncounted"}
+
+::: {.kicker}
+[Drug Perturbation]{.app} Connectivity scoring, in the spirit of CMap and LINCS.
+:::
+
+```{=html}
+<span class="vidwrap"><video class="demovid appvid" data-src="../assets/demo/drug-perturbation-10s.mp4"
+       muted loop playsinline preload="auto"></video></span>
+```
+
+::: {.payoff}
+If the disease turns genes up, find the compound that turns them down.
+:::
+
+
+## Two things sit under all of them {visibility="uncounted"}
+
+::: {.walls .g2}
+::: {.w1}
+A visualization layer
+
+That Xenium slide was a million points on a GPU. The same components drop into R, Python or React unchanged.
+:::
+
+::: {.w4}
+A validator, biobouncer
+
+"Is this even a real identifier?", answered before anything spends a network call.
+:::
+:::
+
+![](../assets/diagrams/biobouncer-overview.svg){.nostretch width=46% fig-align="center"}
+
+::: {.payoff}
+The second one is public. It is the piece you could use tomorrow.
+:::
+
+

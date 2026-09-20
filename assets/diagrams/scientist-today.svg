@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 250" role="img"
+     aria-label="A scientist wonders whether their drug was tested on their cell line, at enough doses, on enough cells to trust. To find out today they open a Jupyter notebook, write pandas and download gigabytes of metadata, and still do not know whether the experiment is possible.">
+  <defs>
+    <marker id="arw2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0,1 L9,5 L0,9 Z" fill="#EE6331"/>
+    </marker>
+    <style>
+      .q    { font-family: "Open Sans", "Segoe UI", sans-serif; font-size: 16px; fill: #404041; }
+      .qb   { font-family: "Open Sans", "Segoe UI", sans-serif; font-size: 16px; font-weight: 700; fill: #404041; }
+      .code { font-family: "Source Code Pro", Consolas, monospace; font-size: 13px; fill: #6a7a86; }
+      .lbl  { font-family: "Source Code Pro", Consolas, monospace; font-size: 12px;
+              font-weight: 600; letter-spacing: 1.4px; fill: #447099; }
+      .sad  { font-family: "Open Sans", "Segoe UI", sans-serif; font-size: 14px;
+              font-style: italic; fill: #EE6331; }
+    </style>
+  </defs>
+
+  <!-- ================= the scientist ================= -->
+  <g>
+    <circle cx="72" cy="104" r="24" fill="#F2F2F2" stroke="#8e9aa3" stroke-width="2"/>
+    <path d="M34 168 a38 34 0 0 1 76 0 Z" fill="#F2F2F2" stroke="#8e9aa3" stroke-width="2"/>
+  </g>
+
+  <!-- thought bubble -->
+  <g fill="#ffffff" stroke="#447099" stroke-width="2">
+    <circle cx="112" cy="72" r="5"/>
+    <circle cx="128" cy="58" r="8"/>
+    <rect x="146" y="14" width="384" height="82" rx="14"/>
+  </g>
+  <text x="166" y="44" class="q">Was my drug tested on <tspan class="qb">my</tspan> cell line,</text>
+  <text x="166" y="72" class="q">at enough doses, on enough cells to trust?</text>
+
+  <!-- arrow into the notebook -->
+  <path d="M544 76 H596" stroke="#EE6331" stroke-width="1.8" fill="none" marker-end="url(#arw2)"/>
+  <text x="570" y="58" text-anchor="middle" class="lbl">TODAY</text>
+
+  <!-- ================= the notebook ================= -->
+  <rect x="614" y="20" width="362" height="150" rx="4" fill="#ffffff" stroke="#c9cfd4"/>
+  <rect x="614" y="20" width="362" height="24" rx="4" fill="#F2F2F2" stroke="#c9cfd4"/>
+  <circle cx="630" cy="32" r="4" fill="#EE6331" opacity=".7"/>
+  <circle cx="644" cy="32" r="4" fill="#419599" opacity=".55"/>
+  <circle cx="658" cy="32" r="4" fill="#72994E" opacity=".55"/>
+  <text x="676" y="37" class="code">notebook.ipynb</text>
+
+  <g>
+    <rect x="626" y="54" width="8" height="14" fill="#447099" opacity=".35"/>
+    <text x="644" y="66" class="code">import pandas as pd</text>
+    <rect x="626" y="76" width="8" height="14" fill="#447099" opacity=".35"/>
+    <text x="644" y="88" class="code">meta = pd.read_parquet(...)</text>
+    <rect x="626" y="98" width="8" height="14" fill="#447099" opacity=".35"/>
+    <text x="644" y="110" class="code">meta.groupby(["drug",</text>
+    <text x="644" y="128" class="code">   "cell_line"]).size()</text>
+    <rect x="626" y="138" width="8" height="14" fill="#EE6331" opacity=".5"/>
+    <text x="644" y="150" class="code">downloading 2.29 GB …</text>
+  </g>
+
+  <!-- the punchline -->
+  <text x="614" y="200" class="sad">…and you still don't know whether the experiment is possible.</text>
+</svg>

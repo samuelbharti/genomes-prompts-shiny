@@ -1,0 +1,53 @@
+name: Deploy resource site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "deck/story-v2.html"
+      - "assets/app-thumbnails/**"
+      - "assets/demo/**"
+      - "assets/logos/**"
+      - "assets/photos/**"
+      - "scripts/stage-site.sh"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # site/ is the source of the site, but it links to the deck and to
+      # assets that live at the repo root (so they aren't duplicated in
+      # git). scripts/stage-site.sh assembles everything the pages
+      # reference into one directory; preview-site.sh runs the same
+      # script for local preview, so the two never drift apart.
+      - name: Assemble Pages artifact
+        run: bash scripts/stage-site.sh _deploy
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _deploy
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

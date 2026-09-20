@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shiny React · Samuel Bharti</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <header class="hub">
+    <h1>Samuel Bharti</h1>
+    <p class="social-links">
+      <a href="https://www.samuelbharti.com" target="_blank" rel="noopener">Website</a> ·
+      <a href="https://www.linkedin.com/in/samuelbharti/" target="_blank" rel="noopener">LinkedIn</a> ·
+      <a href="https://orcid.org/0000-0003-4190-7058" target="_blank" rel="noopener">ORCID</a>
+    </p>
+    <p class="subtitle">
+      Where Shiny React has been useful, with Plotomics Live as the example.
+    </p>
+    <a class="deck-button" href="deck/story-v2.html" target="_blank" rel="noopener">
+      Watch the talk, as presented September 2026 &#8594;
+    </a>
+  </header>
+
+  <nav class="tabs">
+    <a href="index.html">Home</a>
+    <a href="descriptions.html">Descriptions</a>
+    <a href="shinyreact.html" class="active">Shiny React</a>
+    <a href="headshots.html">Headshot Assets</a>
+  </nav>
+
+  <main>
+    <article class="writeup">
+      <p>
+        <strong>Plotomics Live</strong> shows where Shiny React can really
+        extend what is practical in a bioinformatics Shiny application. The
+        app keeps Shiny and R for reactive computation, while using React,
+        TypeScript, and WebGL for the frontend. This makes it possible to
+        build highly interactive visualizations for large and complex
+        biological datasets, including a UMAP with more than 580,000 cells, 1
+        million spatial transcript detections, interactive genome views,
+        molecular structures, networks, and other genomics visualizations.
+      </p>
+      <p>
+        In a traditional Shiny workflow, many of these views would require
+        server-rendered plots, aggressive downsampling, or substantial custom
+        JavaScript and widget infrastructure. With Shiny React, these
+        frontend technologies can be used directly while still communicating
+        naturally with the Shiny backend. For computational biology, where
+        datasets are increasingly large, high-dimensional, and inherently
+        interactive, this combination lets Shiny remain the analysis engine
+        while React and WebGL handle the visualization experience.
+      </p>
+
+      <h3>What Shiny React enabled in Plotomics Live</h3>
+      <ul class="feature-list">
+        <li>
+          <strong>R stays the analysis engine.</strong> Existing Shiny
+          reactivity and scientific R workflows remain on the server.
+        </li>
+        <li>
+          <strong>React becomes the visualization layer.</strong> Direct use
+          of React, TypeScript, WebGL, Canvas, and the JavaScript
+          visualization ecosystem.
+        </li>
+        <li>
+          <strong>584K-cell UMAP, fully interactive.</strong> ~7&nbsp;MB
+          binary typed arrays &#8594; browser &#8594; GPU, rather than
+          server-rendering every view.
+        </li>
+        <li>
+          <strong>1M spatial transcript detections.</strong> Compact binary
+          coordinates and GPU rendering make million-point spatial
+          exploration practical.
+        </li>
+        <li>
+          <strong>Beyond traditional plots.</strong> Interactive gene
+          networks, 3D AlphaFold structures, genome browsers, spatial views,
+          Hi-C, ATAC, and high-dimensional arrays.
+        </li>
+        <li>
+          <strong>Native Shiny reactivity from React.</strong> React state
+          can become Shiny inputs, and R results return directly as reactive
+          outputs.
+        </li>
+        <li>
+          <strong>No visualization re-mount on every update.</strong>
+          Components update data/options directly, avoiding unnecessary GPU
+          reallocation.
+        </li>
+        <li>
+          <strong>One scientific computation, multiple renderers.</strong> R
+          computes the result once; React/WebGL and ggplot2 can visualize the
+          same underlying result.
+        </li>
+      </ul>
+
+      <p>
+        <strong>The blocker in traditional Shiny:</strong> these experiences
+        are possible, but often require custom JavaScript bindings,
+        htmlwidgets, manual message passing, serialization, and lifecycle
+        management.
+      </p>
+      <p><strong>Shiny React removes that integration barrier.</strong></p>
+    </article>
+  </main>
+
+  <footer>
+    Samuel Bharti · 2026 Intern, Shiny team @ Posit ·
+    <a href="https://github.com/samuelbharti" target="_blank" rel="noopener">github.com/samuelbharti</a>
+  </footer>
+</body>
+</html>

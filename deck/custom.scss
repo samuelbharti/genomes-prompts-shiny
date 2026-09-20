@@ -1,0 +1,441 @@
+/*-- scss:defaults --*/
+
+// Posit palette, hardcoded rather than read from brand vars so this file works
+// even if brand/theme resolution changes. Same hexes as ../_brand.yml.
+$pblue:   #447099;
+$pteal:   #419599;
+$pgreen:  #72994E;
+$porange: #EE6331;
+$pgrey:   #404041;
+$plight:  #F2F2F2;
+
+$presentation-heading-color: $pgrey;
+$presentation-heading-font-weight: 600;
+$link-color: $pblue;
+
+/*-- scss:rules --*/
+
+.reveal h2 {
+  border-bottom: 3px solid $porange;
+  padding-bottom: .18em;
+  margin-bottom: .55em;
+}
+
+.reveal .slide-number { font-size: .45em; }
+
+// A quiet kicker line under a heading, for framing a slide in one clause.
+.reveal .kicker {
+  color: $pgrey;
+  opacity: .75;
+  font-size: .78em;
+  margin-top: -.35em;
+  margin-bottom: .8em;
+}
+
+// The single-sentence payoff line that closes a slide.
+.reveal .payoff {
+  margin-top: .7em;
+  padding-top: .45em;
+  border-top: 1px solid rgba(64, 64, 65, .22);
+  font-size: .82em;
+  color: $pgrey;
+}
+
+// ---------------------------------------------------------------------------
+// .walls — the thesis slide: N equal cards, each with a coloured top rule
+// ---------------------------------------------------------------------------
+.reveal .walls {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .55em;
+  font-size: .72em;
+}
+.reveal .walls > div {
+  background: $plight;
+  border-top: 5px solid $pgrey;
+  padding: .55em .6em .7em;
+  border-radius: 0 0 4px 4px;
+}
+.reveal .walls > div > p { margin: 0 0 .3em; line-height: 1.28; }
+.reveal .walls > div > p:first-child { font-weight: 700; color: $pgrey; }
+.reveal .walls > div > p:last-child {
+  font-size: .82em;
+  font-family: "Source Code Pro", monospace;
+  color: $pblue;
+  margin-bottom: 0;
+}
+.reveal .walls .w1 { border-top-color: $porange; }
+.reveal .walls .w2 { border-top-color: $pteal; }
+.reveal .walls .w3 { border-top-color: $pblue; }
+.reveal .walls .w4 { border-top-color: $pgreen; }
+
+// ---------------------------------------------------------------------------
+// .cards — generic card grid (slide 13). 3 up by default, .c5 for five.
+// ---------------------------------------------------------------------------
+.reveal .cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5em;
+  font-size: .66em;
+}
+.reveal .cards.c5 { grid-template-columns: repeat(5, 1fr); font-size: .58em; }
+.reveal .cards > div {
+  background: #fff;
+  border: 1px solid rgba(64, 64, 65, .18);
+  border-left: 4px solid $pblue;
+  padding: .5em .55em;
+  border-radius: 3px;
+}
+.reveal .cards > div > p { margin: 0 0 .28em; line-height: 1.25; }
+.reveal .cards > div > p:first-child { font-weight: 700; }
+.reveal .cards > div > p:last-child { margin-bottom: 0; }
+
+// ---------------------------------------------------------------------------
+// .thumbwall — 3x3 grid of Plotomics Live screenshots with mono captions.
+// Do not go to 4 columns: the oncoplot and lollipop collapse into texture and
+// you lose the "I recognise that figure" reflex that makes the slide work.
+// ---------------------------------------------------------------------------
+// max-width is load-bearing: at full slide width the bottom row is cut off. Do
+// keep the captions to ONE WORD so they cannot wrap: a wrapped caption makes the
+// rows uneven AND pushed this slide onto a second page in the PDF (found by
+// bisecting one slide per deck — it was the only slide that spilled).
+.reveal .thumbwall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .18em .4em;
+  max-width: 860px;
+  margin: .1em auto 0;
+}
+.reveal .thumbwall figure { margin: 0; }
+.reveal .thumbwall img {
+  width: 100%;
+  display: block;
+  border: 1px solid rgba(64, 64, 65, .25);
+  border-radius: 2px;
+  margin: 0;
+  box-shadow: none;
+}
+.reveal .thumbwall figcaption {
+  font-family: "Source Code Pro", monospace;
+  font-size: .42em;
+  text-align: center;
+  color: $pgrey;
+  opacity: .8;
+  padding-top: .1em;
+}
+
+// ---------------------------------------------------------------------------
+// .codepair — the Python | R proof slide.
+// 0.52em on reveal's canvas is ~17px, which scales to ~31px on a 1920px
+// projector. Line numbers are off in the frontmatter: they eat 3-4 characters
+// of width per column and there is none to spare.
+// ---------------------------------------------------------------------------
+.reveal .codepair pre { margin: 0; box-shadow: none; }
+.reveal .codepair pre code {
+  font-size: .78em;
+  line-height: 1.34;
+  padding: .5em .6em;
+  max-height: none;
+}
+.reveal .codepair .lang {
+  font-family: "Source Code Pro", monospace;
+  font-size: .55em;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: $pblue;
+  font-weight: 600;
+  margin-bottom: .25em;
+}
+
+// ---------------------------------------------------------------------------
+// .flow — a horizontal box chain with arrows. Used for the DuckDB pushdown
+// and the one-core-three-wrappers fan.
+// ---------------------------------------------------------------------------
+.reveal .flow {
+  display: flex;
+  align-items: stretch;
+  gap: .3em;
+  font-size: .62em;
+  margin: .5em 0;
+}
+.reveal .flow > div {
+  flex: 1;
+  background: $plight;
+  border: 1px solid rgba(64, 64, 65, .18);
+  border-radius: 3px;
+  padding: .45em .5em;
+  position: relative;
+}
+.reveal .flow > div + div::before {
+  content: "\2192";
+  position: absolute;
+  left: -.42em;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $porange;
+  font-weight: 700;
+}
+.reveal .flow > div > p { margin: 0 0 .2em; line-height: 1.2; }
+.reveal .flow > div > p:first-child {
+  font-family: "Source Code Pro", monospace;
+  font-weight: 600;
+  color: $pblue;
+  font-size: .9em;
+}
+.reveal .flow > div > p:last-child { margin-bottom: 0; opacity: .85; }
+.reveal .flow.hero > div { background: #fff; border-left: 4px solid $pteal; }
+
+// ---------------------------------------------------------------------------
+// .pills — a strip of headline numbers
+// ---------------------------------------------------------------------------
+// Descendant selectors, not `>`: a Quarto fenced div wraps its content in a
+// <p>, so the spans are grandchildren. Raw-HTML usage nests them directly.
+// Both must work.
+.reveal .pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35em;
+  margin: .5em 0;
+}
+.reveal .pills p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35em;
+  margin: 0;
+}
+.reveal .pills span {
+  background: $pblue;
+  color: #fff;
+  border-radius: 999px;
+  padding: .2em .7em;
+  font-size: .6em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.reveal .pills span.alt  { background: $pteal; }
+.reveal .pills span.warm { background: $porange; }
+.reveal .pills span.ok   { background: $pgreen; }
+.reveal .pills span.mute { background: $pgrey; }
+
+// ---------------------------------------------------------------------------
+// Access-status chips for the closing slide. Never a link that 404s.
+// ---------------------------------------------------------------------------
+.reveal .chip {
+  display: inline-block;
+  font-family: "Source Code Pro", monospace;
+  font-size: .8em;
+  font-weight: 600;
+  padding: .05em .45em;
+  border-radius: 3px;
+  color: #fff;
+}
+.reveal .chip.public   { background: $pgreen; }
+.reveal .chip.internal { background: $pblue; }
+.reveal .chip.private  { background: $pgrey; }
+.reveal .chip.wip      { background: $porange; }
+
+// ---------------------------------------------------------------------------
+// .meme — CSS-typeset meme text. This is the offline fallback if memegen is
+// unreachable at build time: set a dimmed own-screenshot as the slide
+// background and overlay this. Also used for inline captions on meme slides.
+// ---------------------------------------------------------------------------
+.reveal .meme {
+  font-family: Impact, "Haettenschweiler", "Arial Black", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  font-size: 2.4em;
+  line-height: 1.06;
+  text-align: center;
+  color: #fff;
+  -webkit-text-stroke: 2px #000;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, .85);
+}
+
+// Meme slides: image centred, no heading chrome, one small caption underneath.
+// The `## {.memeslide}` heading is intentionally empty — hide it so the orange
+// rule from the global h2 style does not appear above the image.
+.reveal .memeslide h2,
+.reveal .heroslide h2 { display: none; }
+.reveal .memeslide img {
+  max-height: 70vh;
+  width: auto;
+  margin: 0 auto;
+  display: block;
+  border: none;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .3);
+}
+.reveal .memeslide .cap {
+  text-align: center;
+  font-size: .62em;
+  color: $pgrey;
+  opacity: .8;
+  margin-top: .5em;
+}
+
+// ---------------------------------------------------------------------------
+// .withmeme — content left, a SMALL meme right. The meme states the wound that
+// the left column answers, and must never be the reason a slide overflows.
+//
+// The right track is a FIXED px width, not a fraction: a four-box .flow inside
+// a plain `1fr` track can force that track wider than its share and shove the
+// meme off the right edge. minmax(0, 1fr) is what pins the content column.
+//
+// Usable canvas is ~1150x600 after reveal's margin and the h2 rule, so
+// 240 + 26 gap leaves ~884px for content — enough for a 4-box .flow, a 2x2
+// .walls, or a diagram at 72% width.
+// ---------------------------------------------------------------------------
+.reveal .withmeme {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 26px;
+  align-items: start;
+}
+.reveal .withmeme.narrow { grid-template-columns: minmax(0, 1fr) 200px; }
+
+// A meme sitting inline in a column next to content.
+.reveal .memeinline { margin-top: .4em; }
+.reveal .memeinline img {
+  max-width: 100%;
+  max-height: 300px; // load-bearing: the only guard against a tall template
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .25);
+}
+
+// ---------------------------------------------------------------------------
+// .bignums — a row of 2-4 headline numbers. This is the class that actually
+// enforces the density rule: a number and a label instead of a sentence.
+// Fenced divs wrap content in <p>, so the convention matches .walls/.flow —
+// first <p> is the number, second is the label.
+// ---------------------------------------------------------------------------
+.reveal .bignums {
+  display: flex;
+  gap: 1.5em;
+  margin: .15em 0 .55em;
+}
+.reveal .bignums > div > p:first-child {
+  font-size: 1.7em; // ~64px on the canvas, ~96px on a 1920 projector
+  font-weight: 700;
+  color: $pblue;
+  line-height: 1;
+  margin: 0;
+}
+.reveal .bignums > div > p:last-child {
+  font-size: .5em;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  opacity: .7;
+  margin: .2em 0 0;
+  line-height: 1.2;
+}
+.reveal .bignums .zero > p:first-child { color: $porange; }
+
+// ---------------------------------------------------------------------------
+// .act — the act marker (GENOMES / SHINY / PROMPTS), top-right, three slides
+// only, so the title's three words land visibly at zero time cost. reveal sets
+// position:absolute on each section, so this anchors to the slide. The white
+// pad is what keeps it legible over the full-bleed Xenium hero.
+// ---------------------------------------------------------------------------
+.reveal .act {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: "Source Code Pro", monospace;
+  font-size: .42em;
+  font-weight: 600;
+  letter-spacing: .14em;
+  color: $pblue;
+  opacity: .9;
+  background: rgba(255, 255, 255, .85);
+  padding: .1em .5em;
+  border-radius: 3px;
+}
+
+// Grid modifiers
+.reveal .walls.g2 { grid-template-columns: repeat(2, 1fr); }
+.reveal .cards.c4 { grid-template-columns: repeat(4, 1fr); font-size: .56em; }
+
+// A verbatim source-code quote. Used once, on the agent-gate slide, where the
+// fact that the sentence is copied out of server.R is the whole point.
+.reveal .verbatim {
+  border-left: 4px solid $pteal;
+  color: $pgrey;
+  font-size: .74em;
+  font-style: normal;
+  margin: .5em 0 .3em;
+  padding: .3em 0 .3em .7em;
+  width: auto;
+  box-shadow: none;
+  background: none;
+}
+.reveal .verbatim .src {
+  display: block;
+  font-family: "Source Code Pro", monospace;
+  font-size: .7em;
+  opacity: .6;
+  margin-top: .2em;
+}
+
+// ---------------------------------------------------------------------------
+// Full-bleed hero image slides: overlay text needs a scrim to stay readable.
+// ---------------------------------------------------------------------------
+.reveal .heroline {
+  background: rgba(255, 255, 255, .9);
+  display: inline-block;
+  padding: .35em .7em;
+  border-left: 6px solid $porange;
+  border-radius: 3px;
+}
+.reveal .heroline .big {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: $pgrey;
+  line-height: 1.1;
+}
+.reveal .heroline .sub {
+  font-size: .68em;
+  color: $pgrey;
+  opacity: .85;
+}
+
+// Tighter default list spacing — every slide here is time-boxed.
+.reveal ul { margin-bottom: .3em; }
+.reveal ul li { margin-bottom: .18em; line-height: 1.3; }
+.reveal .smallish { font-size: .78em; }
+
+// ---------------------------------------------------------------------------
+// .linkgrid — the closing slide. Written as raw HTML so line breaks survive:
+// markdown collapses single newlines, which ran adjacent entries onto one line
+// and pushed the last column past the bottom of the slide.
+// ---------------------------------------------------------------------------
+.reveal .linkgrid {
+  display: grid;
+  grid-template-columns: 1.05fr .8fr 1fr;
+  gap: .3em 1.1em;
+  font-size: .58em;
+  line-height: 1.34;
+}
+.reveal .linkgrid p { margin: 0 0 .5em; }
+.reveal .linkgrid .h {
+  font-weight: 700;
+  font-size: 1.15em;
+  margin-bottom: .35em;
+}
+.reveal .linkgrid code {
+  font-size: .92em;
+  background: none;
+  padding: 0;
+  color: $pblue;
+}
+.reveal .linkgrid .note { opacity: .7; font-style: italic; }
+.reveal .linkgrid ul { margin: 0 0 .5em; padding-left: 1.1em; }
+.reveal .linkgrid ul li { margin-bottom: .3em; }
+.reveal .linkgrid .callout {
+  border-left: 4px solid $porange;
+  padding-left: .5em;
+  font-weight: 600;
+}

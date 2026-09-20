@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 250" role="img"
+     aria-label="Two panels. Left: one experiment produces more data points than a person can look at, shown as a dense field of dots. Right: the answer to a single question is scattered across separate public databases, shown as named boxes with dashed lines converging on one question mark.">
+  <defs>
+    <!-- A pattern gives real density without thousands of literal <circle> tags. -->
+    <pattern id="dots" width="7" height="7" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="1.15" fill="#447099" opacity="0.72"/>
+      <circle cx="5.2" cy="4.8" r="0.9"  fill="#419599" opacity="0.6"/>
+    </pattern>
+    <marker id="dot-end" viewBox="0 0 6 6" refX="3" refY="3" markerWidth="6" markerHeight="6">
+      <circle cx="3" cy="3" r="2" fill="#404041" opacity="0.35"/>
+    </marker>
+    <style>
+      .lbl  { font-family: "Source Code Pro", Consolas, monospace; font-size: 13px;
+              font-weight: 600; letter-spacing: 1.6px; fill: #404041; opacity: .62; }
+      .db   { font-family: "Source Code Pro", Consolas, monospace; font-size: 13px; fill: #447099; }
+      .note { font-family: "Open Sans", "Segoe UI", sans-serif; font-size: 14px; fill: #404041; opacity: .75; }
+    </style>
+  </defs>
+
+  <!-- ================= LEFT: enormous ================= -->
+  <text x="24" y="26" class="lbl">IT GOT ENORMOUS</text>
+  <rect x="24" y="42" width="404" height="150" rx="3" fill="url(#dots)" stroke="#d8dbd9"/>
+  <!-- The human-scale reference sits INSIDE the field so the contrast is
+       visible, but its label goes in the legend below, over the dots it was
+       unreadable. -->
+  <rect x="34" y="52" width="26" height="26" rx="2" fill="#EE6331" fill-opacity="0.16" stroke="#EE6331" stroke-width="1.6"/>
+  <rect x="24" y="204" width="13" height="13" rx="2" fill="#EE6331" fill-opacity="0.16" stroke="#EE6331" stroke-width="1.4"/>
+  <text x="45" y="215" class="note">what one person can look at</text>
+  <text x="24" y="234" class="note">One experiment. Every dot is a measurement.</text>
+
+  <!-- ================= RIGHT: scattered ================= -->
+  <text x="572" y="26" class="lbl">AND IT GOT SCATTERED</text>
+
+  <!-- dashed leaders converging on the question -->
+  <g stroke="#404041" stroke-opacity="0.28" stroke-dasharray="3 4" fill="none" marker-end="url(#dot-end)">
+    <path d="M640 66 L784 118"/>
+    <path d="M900 60 L816 116"/>
+    <path d="M596 120 L778 124"/>
+    <path d="M934 120 L822 126"/>
+    <path d="M646 178 L786 136"/>
+    <path d="M902 182 L818 138"/>
+  </g>
+
+  <!-- the one question in the middle -->
+  <circle cx="800" cy="127" r="26" fill="#ffffff" stroke="#EE6331" stroke-width="2"/>
+  <text x="800" y="136" text-anchor="middle"
+        font-family="Open Sans, Segoe UI, sans-serif" font-size="26" font-weight="700" fill="#EE6331">?</text>
+
+  <!-- named sources: all of these are databases the talk already mentions -->
+  <g>
+    <rect x="566" y="52" width="82" height="26" rx="3" fill="#fff" stroke="#c9cfd4"/>
+    <text x="607" y="70" text-anchor="middle" class="db">MyGene</text>
+
+    <rect x="892" y="46" width="82" height="26" rx="3" fill="#fff" stroke="#c9cfd4"/>
+    <text x="933" y="64" text-anchor="middle" class="db">gnomAD</text>
+
+    <rect x="518" y="106" width="82" height="26" rx="3" fill="#fff" stroke="#c9cfd4"/>
+    <text x="559" y="124" text-anchor="middle" class="db">ClinVar</text>
+
+    <rect x="928" y="106" width="66" height="26" rx="3" fill="#fff" stroke="#c9cfd4"/>
+    <text x="961" y="124" text-anchor="middle" class="db">GTEx</text>
+
+    <rect x="574" y="164" width="82" height="26" rx="3" fill="#fff" stroke="#c9cfd4"/>
+    <text x="615" y="182" text-anchor="middle" class="db">STRING</text>
+
+    <rect x="884" y="168" width="106" height="26" rx="3" fill="#fff" stroke="#c9cfd4"/>
+    <text x="937" y="186" text-anchor="middle" class="db">Open Targets</text>
+  </g>
+
+  <text x="572" y="234" class="note">One question. A different website for every part of the answer.</text>
+</svg>

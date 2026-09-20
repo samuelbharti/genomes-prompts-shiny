@@ -1,0 +1,155 @@
+[
+  {
+    "id": "tahoe-explorer",
+    "title": "Tahoe Explorer",
+    "version": "v0.1.2",
+    "thumbnail": {
+      "small": "assets/app-thumbnails/small/tahoe-explorer.png",
+      "large": "assets/app-thumbnails/tahoe-explorer.png"
+    },
+    "abstract": "Filter and subset Tahoe-100M perturbation metadata, 100.6 million rows, and leave with a reproducible pull recipe. Summaries push down to DuckDB.",
+    "links": {
+      "github": "https://github.com/samuelbharti/tahoe-explorer",
+      "demo": "assets/demo/tahoe-explorer-90s.mp4",
+      "posit": "https://posit-tahoe-explorer.share.connect.posit.cloud/",
+      "doi": "https://doi.org/10.5281/zenodo.21926312"
+    }
+  },
+  {
+    "id": "genescout",
+    "title": "GeneScout",
+    "version": "v0.1.2",
+    "thumbnail": {
+      "small": "assets/app-thumbnails/small/genescout.png",
+      "large": "assets/app-thumbnails/genescout.png"
+    },
+    "abstract": "An agentic evidence-review workbench. Give it a candidate list and a disease context, get back a plausibility-ranked, cited shortlist. Research use only.",
+    "links": {
+      "github": "https://github.com/samuelbharti/genescout",
+      "demo": "assets/demo/genescout-15s.mp4",
+      "posit": "https://posit-genescout.share.connect.posit.cloud/",
+      "myDeployment": "https://samuelbharti-io-genescout.share.connect.posit.cloud/",
+      "doi": "https://doi.org/10.5281/zenodo.21352389"
+    }
+  },
+  {
+    "id": "plotomics-live",
+    "title": "Plotomics Live",
+    "version": "v0.1.1",
+    "thumbnail": {
+      "small": "assets/app-thumbnails/small/plotomics-live.png",
+      "large": "assets/app-thumbnails/plotomics-live.png"
+    },
+    "abstract": "Twenty-six pages of GPU-accelerated visualization through shinyreact, in 476 lines of R, one of which is the UI.",
+    "links": {
+      "github": "https://github.com/samuelbharti/plotomics-live",
+      "demo": "assets/demo/gallery-tour.mp4",
+      "posit": "https://posit-plotomics-live.share.connect.posit.cloud/",
+      "doi": "https://doi.org/10.5281/zenodo.21936926"
+    }
+  },
+  {
+    "id": "recount-explorer",
+    "title": "Recount Explorer",
+    "version": "v0.1.1",
+    "thumbnail": {
+      "small": "assets/app-thumbnails/small/recount-explorer.png",
+      "large": "assets/app-thumbnails/recount-explorer.png"
+    },
+    "abstract": "Browse 18,998 uniformly processed recount3 RNA-seq studies, load one through the recount3 API, and read its quality checks, gene expression and PCA.",
+    "links": {
+      "github": "https://github.com/samuelbharti/recount-explorer",
+      "demo": "assets/demo/recount-explorer-demo.mp4",
+      "posit": "https://posit-recount-explorer.share.connect.posit.cloud/",
+      "myDeployment": "https://samuelbharti-io-recount-explorer.share.connect.posit.cloud/",
+      "doi": "https://doi.org/10.5281/zenodo.22067235"
+    }
+  },
+  {
+    "id": "variant-reviewer",
+    "title": "Variant Reviewer",
+    "version": "v2.3.2",
+    "thumbnail": {
+      "small": "assets/app-thumbnails/small/variant-reviewer.png",
+      "large": "assets/app-thumbnails/variant-reviewer.png"
+    },
+    "abstract": "One gene, one variant, one page. Eighteen cards fan out asynchronously across public APIs, with a 3D structure viewer and a ClinVar typeahead.",
+    "links": {
+      "github": "https://github.com/samuelbharti/variant-reviewer",
+      "demo": "assets/demo/variant-reviewer-15s.mp4",
+      "posit": "https://posit-variant-reviewer.share.connect.posit.cloud/",
+      "doi": "https://doi.org/10.5281/zenodo.21934011"
+    }
+  },
+  {
+    "id": "gene-list-builder",
+    "title": "Gene List Builder",
+    "version": "v0.2.1",
+    "thumbnail": {
+      "small": "assets/app-thumbnails/small/gene-list-builder.png",
+      "large": "assets/app-thumbnails/gene-list-builder.png"
+    },
+    "abstract": "Resolve a disease name to an EFO/MONDO term, query seven gene-disease sources in parallel, and dedupe to one row per gene. Re-ranks live as you tune the source weights.",
+    "links": {
+      "github": "https://github.com/samuelbharti/gene-list-builder",
+      "posit": "https://posit-gene-list-builder.share.connect.posit.cloud/",
+      "doi": "https://doi.org/10.5281/zenodo.21936035"
+    }
+  },
+  {
+    "id": "de-explorer",
+    "title": "DE Explorer",
+    "thumbnail": {
+      "small": "assets/app-thumbnails/small/de-explorer.png",
+      "large": "assets/app-thumbnails/de-explorer.png"
+    },
+    "abstract": "Differential expression over uniformly reprocessed TCGA and airway RNA-seq. Tune thresholds and drill from a PCA overview into per-gene detail.",
+    "links": {
+      "github": "https://github.com/posit-dev/shiny-showcase-bioinformatics/tree/main/apps/de-explorer",
+      "demo": "assets/demo/de-explorer-10s.mp4",
+      "posit": "https://posit-de-explorer.share.connect.posit.cloud/"
+    }
+  },
+  {
+    "id": "signature-scoring",
+    "title": "Signature Scoring",
+    "thumbnail": {
+      "small": "assets/app-thumbnails/small/signature-scoring.png",
+      "large": "assets/app-thumbnails/signature-scoring.png"
+    },
+    "abstract": "Condenses each TCGA-BRCA sample into scores for the 50 Hallmark pathways, contrasts clinical subtypes, and opens any pathway to the genes driving it.",
+    "links": {
+      "github": "https://github.com/posit-dev/shiny-showcase-bioinformatics/tree/main/apps/signature-scoring",
+      "demo": "assets/demo/signature-scoring-10s.mp4",
+      "posit": "https://posit-signature-scoring.share.connect.posit.cloud/"
+    }
+  },
+  {
+    "id": "drug-perturbation",
+    "title": "Drug Perturbation",
+    "thumbnail": {
+      "small": "assets/app-thumbnails/small/drug-perturbation.png",
+      "large": "assets/app-thumbnails/drug-perturbation.png"
+    },
+    "abstract": "Connectivity scoring against a reference perturbation panel. Rank compounds into mimics and reversers, then break any hit down by cell line or dose.",
+    "links": {
+      "github": "https://github.com/posit-dev/shiny-showcase-bioinformatics/tree/main/apps/drug-perturbation",
+      "demo": "assets/demo/drug-perturbation-10s.mp4",
+      "posit": "https://posit-drug-perturbation.share.connect.posit.cloud/"
+    }
+  },
+  {
+    "id": "genome-explorer",
+    "title": "Genome Explorer",
+    "thumbnail": {
+      "small": "assets/app-thumbnails/small/genome-explorer.png",
+      "large": "assets/app-thumbnails/genome-explorer.png"
+    },
+    "abstract": "Recurrent TCGA breast driver mutations placed on hg19 through igv.js. Raise the recurrence filter, then click a variant to zoom the browser to it.",
+    "links": {
+      "github": "https://github.com/posit-dev/shiny-showcase-bioinformatics/tree/main/apps/genome-explorer",
+      "demo": "assets/demo/genome-explorer-demo.mp4",
+      "posit": "https://posit-genome-explorer.share.connect.posit.cloud/"
+    }
+  }
+]

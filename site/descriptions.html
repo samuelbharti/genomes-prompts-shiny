@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Descriptions · Samuel Bharti</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <header class="hub">
+    <h1>Samuel Bharti</h1>
+    <p class="social-links">
+      <a href="https://www.samuelbharti.com" target="_blank" rel="noopener">Website</a> ·
+      <a href="https://www.linkedin.com/in/samuelbharti/" target="_blank" rel="noopener">LinkedIn</a> ·
+      <a href="https://orcid.org/0000-0003-4190-7058" target="_blank" rel="noopener">ORCID</a>
+    </p>
+    <p class="subtitle">
+      What each app and package actually does, and why I built it that way.
+    </p>
+    <a class="deck-button" href="deck/story-v2.html" target="_blank" rel="noopener">
+      Watch the talk, as presented September 2026 &#8594;
+    </a>
+  </header>
+
+  <nav class="tabs">
+    <a href="index.html">Home</a>
+    <a href="descriptions.html" class="active">Descriptions</a>
+    <a href="shinyreact.html">Shiny React</a>
+    <a href="headshots.html">Headshot Assets</a>
+  </nav>
+
+  <main>
+    <h2>Apps</h2>
+
+    <article class="writeup">
+      <h3>Tahoe Explorer</h3>
+      <p>
+        Tahoe-100M is one of the largest single-cell perturbation datasets out
+        there: 100.6 million rows, 2.29 gigabytes of parquet. Before I built
+        this, exploring it meant writing a new query every time you had a
+        question. Tahoe Explorer lets you filter by cell line and drug, see
+        the summary instantly, and copy out the exact R or Python code that
+        produced it. The trick is that every summary runs as a DuckDB query,
+        so the raw cells never have to load into R memory. You leave with an
+        answer and a reproducible recipe, not just a picture.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>GeneScout</h3>
+      <p>
+        GeneScout takes a list of candidate genes, variants, or
+        perturbations, plus a disease you care about, and comes back with a
+        ranked, cited shortlist of what looks plausible and why. It runs on
+        an LLM behind the scenes (Gemini by default, though that is
+        swappable), but every claim has to clear a citation gate first: no
+        citation, no claim. It is a research tool, not a clinical one, and I
+        built it to be honest about that limit rather than to sound more
+        certain than the evidence supports.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>Plotomics Live</h3>
+      <p>
+        This is a 26-page gallery of GPU-accelerated visualizations, from
+        oncoplots to Kaplan-Meier curves to a 1-million-point Xenium spatial
+        view. What makes it interesting underneath: the R backend is 476
+        lines long, and only one of those lines touches the UI. Everything
+        else, all the interactivity and rendering, is a React front end
+        talking to Shiny through shinyreact, with data sent as compact binary
+        blobs straight to the GPU instead of JSON. Every page also falls back
+        to a classic ggplot2 render off the same computation, so nothing
+        depends on WebGL support.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>Recount Explorer</h3>
+      <p>
+        Recount3 has almost 19,000 uniformly processed RNA-seq studies
+        sitting behind an API, and most people never look past the study
+        they already know. Recount Explorer is a browser for that catalog:
+        filter by organism, source, or size, load a study, and get its
+        quality checks, gene expression, and a PCA plot without writing any
+        code. It is the newest of these apps and the simplest idea: make the
+        recount3 catalog something you can actually explore.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>Variant Reviewer</h3>
+      <p>
+        Give this one gene and one variant, and it fans out to eighteen
+        public APIs at once, MyGene, MyVariant, gnomAD, ClinVar, VEP, GTEx,
+        STRING, Open Targets, and AlphaFold among them, then lays every
+        answer out on a single page. There is a 3D structure viewer built
+        in, and a ClinVar typeahead that starts prefetching as you type so
+        the variant is already loaded by the time you finish. I built it
+        because reviewing a variant properly used to mean a dozen browser
+        tabs; now it is one page that loads while you read.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>Gene List Builder</h3>
+      <p>
+        Start with a disease name. Gene List Builder resolves it to an EFO
+        or MONDO term, queries seven gene-disease evidence sources in
+        parallel, Open Targets, PanelApp, DGIdb, and Pharos among them, and
+        dedupes everything down to one row per gene. You can tune how much
+        weight each source gets and watch the ranking update live. When
+        you're happy with the list, it exports a CSV plus a Markdown report
+        that shows exactly where every gene's evidence came from.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>DE Explorer</h3>
+      <p>
+        A differential expression explorer built on real, uniformly
+        reprocessed TCGA lung cancer and airway RNA-seq data: adenocarcinoma
+        against squamous cell against normal tissue. Move the significance
+        threshold and every panel on the page follows, so you can see how one
+        number changes the whole picture.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>Signature Scoring</h3>
+      <p>
+        Instead of looking at one gene at a time, this app scores each TCGA
+        breast cancer sample against all 50 Hallmark pathways and lets you
+        contrast the clinical subtypes on that basis. A single gene's
+        expression is noisy; a whole pathway score is a much steadier
+        signal. Click into any pathway and it opens up to show you the
+        individual genes driving that score.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>Drug Perturbation</h3>
+      <p>
+        This one does connectivity scoring in the spirit of CMap and LINCS:
+        rank a panel of compounds by how well each one reverses a disease's
+        gene-expression signature, versus how well it mimics it, then break
+        any hit down by cell line or dose. Worth saying plainly: the
+        perturbation panel shown is a synthetic fixture grounded in TCGA-BRCA
+        data, not real LINCS screening data. I built it to show the method
+        clearly, not to make a drug-discovery claim I can't back up.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>Genome Explorer</h3>
+      <p>
+        Recurrent breast cancer driver mutations from TCGA, placed in
+        genomic context on hg19 through a real igv.js genome browser, not a
+        static plot pretending to be one. Raise the recurrence filter to cut
+        the noise, then click any variant and the browser zooms straight to
+        it. It's also the one app in the family that ships the full matrix:
+        both R and Python versions, in both Shiny and shinyreact.
+      </p>
+    </article>
+
+    <h2>Packages</h2>
+
+    <article class="writeup">
+      <h3>biobouncer</h3>
+      <p>
+        biobouncer answers one question: is this identifier valid? Gene
+        symbols, ontology terms, variant formats, database accessions, 48
+        identifier systems in total, checked either offline against known
+        patterns and a cached snapshot, or live against the source. R,
+        Python, and TypeScript all run against the same conformance test
+        corpus, so the three implementations can't quietly drift apart and
+        give different answers for the same input. It doesn't replace
+        something like biomaRt or mygene; it's the gate that checks your
+        input before it ever reaches them. It's on CRAN and PyPI now.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>biohttp</h3>
+      <p>
+        biohttp is the HTTP layer underneath my other R packages that talk
+        to biological web services. Calls return a result value instead of
+        throwing an error, so a real failure and a merely-empty answer stay
+        clearly distinct in your code. Circuit breaking, retries,
+        throttling, and success-only caching are all on by default, so a
+        flaky API doesn't take down whatever you're running. It's plumbing,
+        not a product, but it's the plumbing that makes bioclients possible.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>bioclients</h3>
+      <p>
+        bioclients is one client per biological database, 29 of them, from
+        Ensembl and UniProt to gnomAD, Open Targets, and AlphaFold. Each
+        client is split into two halves: the part that makes the request,
+        and a pure parser that needs no network at all, which makes the
+        parsing logic simple to test in isolation. Transport, retries, and
+        caching are all handled by biohttp underneath, so bioclients itself
+        only has to worry about what each API actually returns.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>plotomics</h3>
+      <p>
+        plotomics is the GPU-accelerated visualization engine behind
+        Plotomics Live: one TypeScript core, seventeen chart types from
+        volcano plots to spatial views to genome tracks, wrapped three
+        separate ways so the same code renders in a React app, an R Shiny
+        app through htmlwidgets, or a Jupyter notebook through anywidget.
+        Large data never goes through JSON; it moves as typed arrays
+        straight to the GPU. It's on npm, PyPI, CRAN, and R-universe,
+        because the whole point was to stop rebuilding the same charts three
+        times in three languages.
+      </p>
+    </article>
+
+    <article class="writeup">
+      <h3>biocohort</h3>
+      <p>
+        biocohort keeps the subjects, samples, and analysis outputs of an
+        omics study in one validated object, instead of scattered across
+        spreadsheets that drift out of sync. Species and assay are values in
+        the data, not separate columns or classes, so the same manifest
+        structure works whether you're tracking a human cohort or a mouse
+        one, RNA-seq or proteomics. It also generates pipeline sample sheets
+        and keeps a registry of what analysis ran on what, so you can trace a
+        result back to the exact samples that produced it.
+      </p>
+    </article>
+  </main>
+
+  <footer>
+    Samuel Bharti · 2026 Intern, Shiny team @ Posit ·
+    <a href="https://github.com/samuelbharti" target="_blank" rel="noopener">github.com/samuelbharti</a>
+  </footer>
+</body>
+</html>
