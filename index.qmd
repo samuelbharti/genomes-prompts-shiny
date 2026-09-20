@@ -788,7 +788,7 @@ R stays the analytical engine. The browser does the drawing it is good at.
        muted loop playsinline preload="auto"></video></span>
 ```
 
-## What Tahoe-100M is
+## Tahoe-100M
 
 ::: {.kicker}
 One public dataset. Free to anyone. And effectively nobody can open it.
@@ -1200,7 +1200,7 @@ All ten are deployed on Connect Cloud now. Keeping them current is the part that
 The data got big and scattered. Their tools didn't follow. Shiny was a good place to fix that.
 :::
 
-## Where to find all of it
+## Every project, and where it lives
 
 ::: {.kicker}
 All fifteen are open source. The ten applications are also running, not only readable.
